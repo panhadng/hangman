@@ -5,13 +5,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% comment %} CSS {% endcomment %}
     <link href="{% static 'game/styles.css' %}" rel="stylesheet" />
-    <link href="https://fonts.cdnfonts.com/css/academy-engraved-let" rel="stylesheet">
+
+    {% comment %} React, ReactDOM, Babel {% endcomment %}
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    {% comment %} Fonts {% endcomment %}
+    <link
+      href="https://fonts.cdnfonts.com/css/academy-engraved-let"
+      rel="stylesheet"
+    />
+
+    {% comment %} JavaScript {% endcomment %}
     <script src="{% static 'game/app.js' %}"></script>
+
     <title>Hangman Game</title>
   </head>
   <body>
-    {% block body %}
-    {% endblock %}
+    {% block body %} {% endblock %}
   </body>
 </html>

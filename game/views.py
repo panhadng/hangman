@@ -9,3 +9,7 @@ def index(request):
 
 def login(request):
     return render(request, "game/login.html")
+
+
+def register(request):
+    return render(request, "game/register.html")

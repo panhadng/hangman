@@ -2,17 +2,16 @@
 
 <div class="form-container">
   <form method="post" class="sign-form">
-    <h2>LOGIN</h2>
+    <h2>REGISTER</h2>
     <div class="form-group">
       <div class="form-item">
-        <label for="username">Username / Email</label>
+        <label for="username">Username</label>
         <input
           type="text"
           id="username"
           name="username"
-          placeholder="Enter your username or email..."
-          required
-        /><br />
+          placeholder="Write a username"
+        />
       </div>
       <div class="form-item">
         <label for="password">Password</label>
@@ -20,17 +19,24 @@
           type="password"
           id="password"
           name="password"
-          placeholder="Enter your password..."
+          placeholder="Write your password"
+          required
+        />
+      </div>
+      <div class="form-item">
+        <label for="password">Confirm Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Rewrite your password"
           required
         />
       </div>
     </div>
-    <button type="submit" class="sign-button">Login</button>
+    <button type="submit" class="sign-button">Register</button>
     <div class="prompt-sign">
-      <p>
-        Doesn't have an account?
-        <a href="{% url 'register' %}">Register here</a>
-      </p>
+      <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
     </div>
   </form>
 </div>
