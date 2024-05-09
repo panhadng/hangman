@@ -32,7 +32,16 @@
     <title>Hangman Game</title>
   </head>
   <body>
-    {% block body %} {% endblock %}
+    {% block body %} {% endblock %} 
+    
+    {% comment %} if the user is authenticated then show the profile button {% endcomment %}
+    <button class="global-button">
+      <img src="{% static "game/icons/user.png" %}" >
+    </button>
+    <button class="global-button" id="settings-button">
+      <img src="{% static "game/icons/gear.png" %}" >
+    </button>
+
     <footer>
       <p class="game-copyrights">
         &copy; 2024 Word Warriors. All Rights Reserved
