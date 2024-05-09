@@ -15,6 +15,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 header {
   display: flex;
   align-items: flex-end;
@@ -25,8 +26,13 @@ header {
   flex: 1;
 }
 
+/* footer */
 footer {
   margin-top: auto;
+}
+
+footer p {
+  margin: 30px auto;
 }
 
 .game-logo {
@@ -40,6 +46,7 @@ footer {
   color: white;
 }
 
+/* sign forms, login and register */
 .form-container {
   border-radius: 40px;
   width: 500px;
@@ -103,4 +110,21 @@ footer {
 .sign-button:hover {
   background-color: white;
   color: var(--theme-blue);
+}
+
+.menus {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+}
+
+.menus > a {
+  margin: 10px auto;
+  color: white;
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+.menus > a:hover {
+  color: gray;
 }

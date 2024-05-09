@@ -5,9 +5,11 @@
 </header>
 
 <main>
-  {% block core %} You need to login to play.
-  <a href="{% url 'login' %}">Login here.</a>
-  <a href="{% url 'menu' %}">Go to Menu here.</a>
+  {% block core %} 
+  You need to login to play.
+  <a href="{% url 'login' %}">Login here.</a><br />
+  You can go to the menu page.
+  <a href="{% url 'menu' %}">Go to Menu here.</a><br />
   {% endblock %}
 </main>
 

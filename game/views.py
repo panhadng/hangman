@@ -13,3 +13,7 @@ def login(request):
 
 def register(request):
     return render(request, "game/register.html")
+
+
+def menu(request):
+    return render(request, "game/menu.html")
