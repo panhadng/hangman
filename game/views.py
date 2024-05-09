@@ -1,8 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
 
-
+#  All the views
 def index(request):
     return render(request, "game/index.html")
 
@@ -17,3 +16,7 @@ def register(request):
 
 def menu(request):
     return render(request, "game/menu.html")
+
+
+def game(request):
+    return render(request, "game/game.html")

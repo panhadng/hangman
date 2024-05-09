@@ -1,20 +1,16 @@
-{% extends "game/layout.html" %} {% load static %} {% block body %}
+{% extends "game/layout.html" %} {% block body %}
 
 <header>
   <h1 class="game-logo">WORD WARRIORS</h1>
 </header>
 
 <main>
-  {% block core %} 
-  You need to login to play.
+  {% block core %}
+  <span> You need to login to play. </span>
   <a href="{% url 'login' %}">Login here.</a><br />
-  You can go to the menu page.
+  <span> You can go to the menu page. </span>
   <a href="{% url 'menu' %}">Go to Menu here.</a><br />
   {% endblock %}
 </main>
-
-<footer>
-  <p class="game-copyrights">&copy; 2024 Word Warriors. All Rights Reserved</p>
-</footer>
 
 {% endblock %}

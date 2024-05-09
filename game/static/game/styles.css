@@ -26,13 +26,16 @@ header {
   flex: 1;
 }
 
+/* header extras */
+header > h2 {
+  font-size: 4rem;
+  color: lightblue;
+  font-family: "Academy Engraved LET", sans-serif;
+}
+
 /* footer */
 footer {
   margin-top: auto;
-}
-
-footer p {
-  margin: 30px auto;
 }
 
 .game-logo {
@@ -43,6 +46,13 @@ footer p {
 }
 
 .game-copyrights {
+  margin: 30px auto;
+  color: lightblue;
+}
+
+/* temp */
+main > a,
+main > span {
   color: white;
 }
 
@@ -93,6 +103,7 @@ footer p {
 .prompt-sign > p > a {
   color: var(--theme-blue);
 }
+
 .prompt-sign > p > a:hover {
   color: lightblue;
 }
@@ -110,6 +121,7 @@ footer p {
 .sign-button:hover {
   background-color: white;
   color: var(--theme-blue);
+  cursor: pointer;
 }
 
 .menus {
@@ -127,4 +139,17 @@ footer p {
 
 .menus > a:hover {
   color: gray;
+}
+
+/* game section */
+.game-container {
+  border-radius: 40px;
+  width: 1000px;
+  min-height: 500px;
+  height: auto;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
