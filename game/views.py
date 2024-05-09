@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 
-#  All the views
+#  Main Menu Views
 def index(request):
     return render(request, "game/index.html")
 
@@ -20,3 +20,14 @@ def menu(request):
 
 def game(request):
     return render(request, "game/game.html")
+
+
+def leaderboard(request):
+    return render(request, "game/leaderboard.html")
+
+
+# Game Views
+
+
+
+# Social Network Views

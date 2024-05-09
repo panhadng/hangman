@@ -153,3 +153,18 @@ main > span {
   flex-direction: column;
   justify-content: center;
 }
+
+
+/* leaderboard section */
+.leader-container {
+  border-radius: 40px;
+  width: 1000px;
+  min-height: 500px;
+  height: auto;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+

@@ -12,4 +12,5 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('menu', views.menu, name="menu"),
     path('game', views.game, name="game"),
+    path('leaderboard', views.leaderboard, name="leaderboard"),
 ]
