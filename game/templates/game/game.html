@@ -1,12 +1,59 @@
-{% extends "game/layout.html" %} {% block body %}
+{% extends "game/layout.html" %} {% load static %} {% block body %}
 
 <header>
   <h2>Level 1</h2>
 </header>
 
 <main>
-  <div class="game-container" >
-    Hello world
+  <div class="game-container">
+    <div class="game-status">
+      <div class="status-group">
+        <img src="{% static "game/icons/hearts.png" %}" > <span>20</span>
+      </div>
+      <div class="status-group">
+        <img src="{% static "game/icons/spades.png" %}" > <span>100</span>
+      </div>
+    </div>
+    <div class="level-contents">
+      <div class="content-titles">
+        <div class="content-title">
+          <img src="{% static "game/icons/text.png" %}" >
+          <h3>Word</h3>
+        </div>
+        <div class="content-title">
+          <img src="{% static "game/icons/idea.png" %}" >
+          <h3>Hint</h3>
+        </div>
+        <div class="content-title">
+          <img src="{% static "game/icons/puzzle.png" %}" >
+          <h3>Category</h3>
+        </div>
+      </div>
+      <hr />
+      <div class="content-desc">
+        <div class="level-content">_ _ _ _ _</div>
+        <div class="level-content">
+          It's what you give up to get something you want. Economists study its
+          role in market transactions.
+        </div>
+        <div class="level-content">Economics</div>
+      </div>
+      <div class="guess-form">
+        <div class="input-guess">
+          <div class="guesses">
+            <label for="word-guess">Guess the full word: </label>
+            <input id="word-guess" name="word-guess" type="text" />
+          </div>
+          <div class="guesses">
+            <label for="letter-guess">Guess each letter: </label>
+            <input id="letter-guess" name="letter-guess" type="text" />
+          </div>
+        </div>
+        <button type="submit">
+          <span>Guess</span> <img src="{% static "game/icons/guess.png" %}" alt="guess">
+        </button>
+      </div>
+    </div>
   </div>
 </main>
 

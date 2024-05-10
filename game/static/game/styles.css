@@ -56,6 +56,30 @@ main > span {
   color: white;
 }
 
+/* global menu */
+.global-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+.global-button:hover {
+  background-color: gray;
+}
+
+.global-button img {
+  width: 50px;
+}
+
+#settings-button {
+  bottom: 100px;
+}
+
 /* sign forms, login and register */
 .form-container {
   border-radius: 40px;
@@ -145,15 +169,176 @@ main > span {
 .game-container {
   border-radius: 40px;
   width: 1000px;
-  min-height: 500px;
-  height: auto;
+  height: 500px;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
+.game-status {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(155, 155, 155, 0.7);
+  padding: 20px;
+  border: none;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 2rem;
+}
+
+.game-status .status-group {
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.game-status img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.level-contents {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.level-contents > hr {
+  width: 90%;
+}
+
+.content-titles {
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.content-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  align-items: center;
+}
+
+.content-title > h3 {
+  font-size: 2rem;
+  font-weight: normal;
+  color: lightblue;
+  margin: auto 10px;
+}
+.content-title > img {
+  width: 50px;
+  height: 50px;
+}
+
+.content-desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+  height: 200px;
+}
+
+.level-content:nth-child(1) {
+  font-size: 2rem;
+}
+
+.level-content:nth-child(2) {
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+.level-content:nth-child(3) {
+  font-size: 2rem;
+}
+
+.level-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  align-items: center;
+}
+
+.guess-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: auto;
+  flex: 1;
+}
+
+.guess-form > button[type="submit"] {
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  border: none;
+  padding: 15px 40px;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 200px;
+}
+
+.guess-form > button[type="submit"] > img {
+  width: 40px;
+  margin-left: 10px;
+}
+
+.guess-form > button[type="submit"] > span {
+  margin-right: 10px;
+}
+
+.guess-form > button[type="submit"]:hover {
+  background-color: darkslategray;
+}
+
+.input-guess {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex: 1;
+  padding: 20px 40px;
+}
+
+.guesses {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  color: white;
+  align-items: center;
+}
+
+.guesses label,
+.guesses input {
+  font-size: 1.5rem;
+  width: 100%;
+  flex: 1;
+}
+
+.guesses input {
+  border-radius: 10px;
+  padding: 10px 20px;
+  border: none;
+  color: black;
+  font-weight: bolder;
+}
 
 /* leaderboard section */
 .leaderboard-container {
@@ -191,62 +376,4 @@ text-align: center;
   align-items: center;
   justify-content: center;
 }
-.pyramid {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-}
-.pyramid img {
-  width: 50px;
-}
-.pyramid-display {
-  position: relative;
-  height: 320px;
-  clip-path: polygon(50% 0, 20% 100%, 80% 100%);
-  flex: 1
-}
-.pyramid div {
-  background: red;
-  width: 100%;
-  height: 100px;
-  margin: 0 auto 10px;
-  color: white;
-  line-height: 100px;
-  text-align: center;
-}
-.pyramid p {
-  display: flex;
-  align-items: center;
-}
-.profile-details img {
-  height: 2em;
-}
-.profile-details p {
-  display: flex;
-  align-items: center;
-}
-.profile-details {
-  width: 300px;
-}
-.profile-section {
-  border-radius: 40px;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content:space-evenly;
-  color: white;
-}
-.analytics {
-  display: flex;
-  justify-content: space-between;
-}
-.statistics {
-  text-align: center;
-  margin-left: 30px;
-}
-.score {
- width: 600px;
- height: 300px;
- margin: 30px auto;
-}
+
