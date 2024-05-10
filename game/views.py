@@ -25,7 +25,11 @@ def game(request):
 def leaderboard(request):
     return render(request, "game/leaderboard.html")
 
+def profile(request):
+    return render(request, "game/profile.html")
 
+def chart(request):
+    return render(request, "game/chart.html")
 # Game Views
 
 
