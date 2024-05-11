@@ -144,9 +144,50 @@ def guess(request, game_id):
     return redirect('game')
 
 
+def guess(request, game_id):
+    if request.method == "POST":
+        game = Game.objects.filter(id=game_id).first()
+        game_level = Level.objects.filter(level=game.last_level).first()
+
+        # work on the guess
+        guess = request.POST['guess'].lower()
+        type = request.POST['guess-type'].lower()
+        game_session = GameLevel.objects.filter(
+            game_id=game_id, level=game_level).first()
+
+        # retrieve our target word to verify
+        word = Word.objects.filter(id=game_level.word_id).first().text.lower()
+
+        if (type == "letter" and guess in word) or (type == "word" and guess == word):
+            game.total_game_score += 20
+            game_session.level_game_score += 20
+            
+            # add the guess to the guessed strings
+            game_session.guessed_strings += guess
+            game.save(), game_session.save()
+        else:
+            game.total_game_score -= 20
+            game.lives_left -= 1
+            game_session.level_game_score -= 20
+            game.save(), game_session.save()
+
+        return redirect('game', level=game_level.level, new=0)
+    
+    return redirect('game')
+
+
+# Performance Views
 def leaderboard(request):
     return render(request, "game/leaderboard.html")
 
+def profile(request):
+    return render(request, "game/profile.html")
+
+def chart(request):
+    return render(request, "game/chart.html")
+
+    with open(data_path, 'r') as f:
+        words_data = json.load(f)
 
 # Setup Views
 def populate(request):

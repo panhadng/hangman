@@ -1,12 +1,70 @@
-{% extends "game/layout.html" %} {% block body %}
-
+{% extends "game/layout.html" %} 
+{% load static %}
+{% block body %}
 <header>
   <h2>Leaderboard</h2>
 </header>
 
 <main>
-  <div class="leader-container" >
-    The best one wins
+  <div class="leaderboard-container" >
+    <div class="pyramid">
+      <p><img src="{% static "game/images/pyramidpic.png" %}">MVP Pyramid</p>
+    <div class="pyramid-display">
+         <div class="top" style="line-height: 160px;">Jon Snow</div>
+         <div class="mid" style="border: 2px solid;">Tyrion Lannister</div>
+         <div class="bottom">Arya Stark</div>
+    </div>
+    </div>
+      <div class="leaderboard-display">
+        <div class="leaderboard-header">
+          <div class="leaderboard-icon" style="flex-grow: 2;">
+          <p><img src="{% static "game/images/leaderb.png" %}">Leaderboard</p>
+          </div>
+          <p>Score<img src="{% static "game/images/score.png" %}" style="width: 20px; margin-left: 10px;"></p>
+          </div>
+          <table>
+              <thead>
+                <tr>
+                  <th>User Name</th>
+                  <th>Best Score</th>
+                  <th>Highest Level</th>
+                  <th>Longest Streak</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Jon Snow</td>
+                  <td>940</td>
+                  <td>10</th>
+                  <td>5</th>
+                </tr>
+                <tr>
+                  <td>Petyr Baelish</td>
+                  <td>880</td>
+                  <td>9</th>
+                  <td>6</th>
+                </tr>
+                <tr>
+                  <td>Tyrion Lannister</td>
+                  <td>860</td>
+                  <td>12</th>
+                  <td>7</th>
+                </tr>
+                <tr>
+                  <td>Cersei Lannister</td>
+                  <td>820</td>
+                  <td>11</th>
+                  <td>4</th>
+                </tr>
+                <tr>
+                  <td>Arya Stark</td>
+                  <td>800</td>
+                  <td>14</th>
+                  <td>6</th>
+                </tr>
+              </tbody>            
+            </table>
+  </div>
   </div>
 </main>
 

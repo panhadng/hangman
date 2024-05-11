@@ -13,7 +13,13 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('menu', views.menu, name="menu"),
 
+<<<<<<< HEAD
     path('leaderboard', views.leaderboard, name="leaderboard"),
+=======
+    # Performance Routes
+    path('leaderboard', views.leaderboard, name="leaderboard"),
+    path('profile', views.profile, name="profile"),
+>>>>>>> design
 
     # Setup Routes
     path('populate', views.populate, name="populate"),
