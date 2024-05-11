@@ -1,7 +1,8 @@
 {% extends "game/index.html" %} {% block core %}
 
 <div class="form-container">
-  <form method="post" class="sign-form">
+  <form method="post" class="sign-form" action="{% url 'register' %}">
+    {% csrf_token %}
     <h2>REGISTER</h2>
     <div class="form-group">
       <div class="form-item">

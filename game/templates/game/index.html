@@ -7,9 +7,29 @@
 <main>
   {% block core %}
   <span> You need to login to play. </span>
-  <a href="{% url 'login' %}">Login here.</a><br />
+  <a
+    style="color: lightblue"
+    onmouseover="this.style.color = 'gray'"
+    onmouseout="this.style.color = 'lightblue'"
+    href="{% url 'login' %}"
+    >Login here.</a
+  ><br />
   <span> You can go to the menu page. </span>
-  <a href="{% url 'menu' %}">Go to Menu here.</a><br />
+  <a
+    style="color: lightblue"
+    onmouseover="this.style.color = 'gray'"
+    onmouseout="this.style.color = 'lightblue'"
+    href="{% url 'menu' %}"
+    >Go to Menu here.</a
+  ><br />
+  <span> You can populate the database. </span>
+  <a
+    style="color: lightblue"
+    onmouseover="this.style.color = 'gray'"
+    onmouseout="this.style.color = 'lightblue'"
+    href="{% url 'populate' %}"
+    >Populate here.</a
+  ><br />
   {% endblock %}
 </main>
 

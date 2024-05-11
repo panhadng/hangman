@@ -213,6 +213,10 @@ main > span {
   width: 90%;
 }
 
+.level-content {
+  padding: 0 40px;
+}
+
 .content-titles {
   height: 100px;
   display: flex;
@@ -251,7 +255,7 @@ main > span {
 }
 
 .level-content:nth-child(1) {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .level-content:nth-child(2) {
@@ -314,7 +318,7 @@ main > span {
   flex-direction: column;
   text-align: left;
   flex: 1;
-  padding: 20px 40px;
+  padding: 0 40px 20px 0;
 }
 
 .guesses {
@@ -326,18 +330,35 @@ main > span {
 }
 
 .guesses label,
-.guesses input {
+.guesses input,
+.guesses select {
   font-size: 1.5rem;
   width: 100%;
   flex: 1;
 }
 
-.guesses input {
+.guesses input,
+.guesses select {
   border-radius: 10px;
   padding: 10px 20px;
   border: none;
   color: black;
-  font-weight: bolder;
+}
+
+.guesses select {
+  -webkit-appearance: none; /* Remove default arrow for Chrome/Safari */
+  -moz-appearance: none; /* Remove default arrow for Firefox */
+  appearance: none; /* Remove default arrow for modern browsers */
+  font-weight: normal;
+  color: black;
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 48px;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+}
+
+.guesses select:disabled {
+  color: gray;
 }
 
 /* leaderboard section */
