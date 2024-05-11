@@ -1,0 +1,52 @@
+[
+  {
+    "word": "Economics",
+    "category": "Social Sciences",
+    "hint": "The study of how societies allocate scarce resources to satisfy unlimited wants."
+  },
+  {
+    "word": "Mitochondria",
+    "category": "Biology",
+    "hint": "Known as the powerhouse of the cell, this organelle produces ATP through cellular respiration."
+  },
+  {
+    "word": "Inflation",
+    "category": "Economics",
+    "hint": "The rate at which the general level of prices for goods and services is rising."
+  },
+  {
+    "word": "Quadratic",
+    "category": "Mathematics",
+    "hint": "A polynomial equation of the second degree, involving a variable raised to the power of 2."
+  },
+  {
+    "word": "Democracy",
+    "category": "Politics",
+    "hint": "A system of government by the whole population or all the eligible members of a state, typically through elected representatives."
+  },
+  {
+    "word": "Photosynthesis",
+    "category": "Biology",
+    "hint": "The process by which green plants and some other organisms use sunlight to synthesize foods with the help of chlorophyll."
+  },
+  {
+    "word": "Algorithm",
+    "category": "Computer Science",
+    "hint": "A process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer."
+  },
+  {
+    "word": "Recession",
+    "category": "Economics",
+    "hint": "A significant decline in economic activity spread across the economy, lasting more than a few months."
+  },
+  {
+    "word": "Hypotenuse",
+    "category": "Mathematics",
+    "hint": "The longest side of a right-angled triangle, opposite the right angle."
+  },
+  {
+    "word": "Mitosis",
+    "category": "Biology",
+    "hint": "A type of cell division that results in two daughter cells each having the same number and kind of chromosomes as the parent nucleus."
+  }
+]

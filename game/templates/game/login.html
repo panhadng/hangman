@@ -1,16 +1,17 @@
 {% extends "game/index.html" %} {% block core %}
 
 <div class="form-container">
-  <form method="post" class="sign-form">
+  <form method="post" class="sign-form" action="{% url 'login' %}">
+    {% csrf_token %}
     <h2>LOGIN</h2>
     <div class="form-group">
       <div class="form-item">
-        <label for="username">Username / Email</label>
+        <label for="username">Username</label>
         <input
           type="text"
           id="username"
           name="username"
-          placeholder="Enter your username or email..."
+          placeholder="Enter your username..."
           required
         /><br />
       </div>
