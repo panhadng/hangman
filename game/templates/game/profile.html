@@ -8,8 +8,8 @@
     <main>
         <div class="profile-section">
             <div class="profile-details">
-                <div class="avt">
-                    <img src="{% static "game/images/profile_avtpic.png" %}" style="width: 30%; height: 30%;"><img src="{% static "game/images/profile_editicon.png" %}">
+                <div class="prof-details" style="margin-left: 80px;">
+                    <img src="{% static "game/images/profile_avtpic.png" %}" style="width: 80%; height: 80%;"><img src="{% static "game/images/profile_editicon.png" %}" style="width: 2em; height: 2em;">
                 </div>
                 <div class="prof-details">
                     <p><img src="{% static "game/images/profile_name.png" %}">John Snow</p>
@@ -24,19 +24,26 @@
                     <p><img src="{% static "game/images/profile_badge.png" %}">2024 Best Economist</p>
                 </div>
             </div>
-                <div id="chart_div" class="score"></div>
-            <div class="statistics">
-                <p>Highest Score Achieved</p>
-                <p style="font-size: 50px; color: lightblue;">940</p>
-                <p>Highest Level Achieved</p>
-                <p style="font-size: 50px; color: lightblue;">10</p>
-                <p>Win Rate</p>
-                <p style="font-size: 50px; color: lightblue;">80%</p>
-                <p>Longest No-fail streak</p>
-                <p style="font-size: 50px; color: lightblue;">5</p>
-                <p>Successful Guess Rate</p>
-                <p style="font-size: 50px; color: lightblue;">62%</p>
-        </div>
+            <div class="statistics-detail">
+                <div class="statistics-title">
+                    <h2>Analytics</h2>
+                </div>
+                <div class="statistics-num">
+                    <div id="chart_div" class="score"></div>
+                    <div class="statistics">
+                        <p>Highest Score Achieved</p>
+                        <p style="font-size: 30px; color: lightblue;">940</p>
+                        <p>Highest Level Achieved</p>
+                        <p style="font-size: 30px; color: lightblue;">10</p>
+                        <p>Win Rate</p>
+                        <p style="font-size: 30px; color: lightblue;">80%</p>
+                        <p>Longest No-fail streak</p>
+                        <p style="font-size: 30px; color: lightblue;">5</p>
+                        <p>Successful Guess Rate</p>
+                        <p style="font-size: 30px; color: lightblue;">62%</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

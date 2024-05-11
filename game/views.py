@@ -28,8 +28,6 @@ def leaderboard(request):
 def profile(request):
     return render(request, "game/profile.html")
 
-def chart(request):
-    return render(request, "game/chart.html")
 # Game Views
 
 
