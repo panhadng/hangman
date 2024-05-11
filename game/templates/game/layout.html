@@ -70,12 +70,13 @@ function drawBasic() {
     
     {% comment %} if the user is authenticated then show the profile button {% endcomment %}
     <button class="global-button">
+      <a href="{% url 'profile' %}">
       <img src="{% static "game/icons/user.png" %}" >
+      </a>
     </button>
     <button class="global-button" id="settings-button">
       <img src="{% static "game/icons/gear.png" %}" >
     </button>
-
     <footer>
       <p class="game-copyrights">
         &copy; 2024 Word Warriors. All Rights Reserved
