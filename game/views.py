@@ -20,7 +20,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return redirect('index')
         else:
             return render(request, "game/login.html", {
                 "message": "Invalid username and/or password."
@@ -77,7 +77,7 @@ def game(request, level, new):
         game = Game.objects.create(
             last_level=level, user_id=request.user, id=last_game+1)
         game_session = GameLevel.objects.create(
-            game_id=game.id, level=Level.objects.filter(level=level).first())
+            game_id=game, level=Level.objects.filter(level=level).first())
 
     if request.method == "GET":
         # fetch the game and level data
@@ -85,8 +85,8 @@ def game(request, level, new):
             last_level=level, user_id=request.user).last()
         game_level = Level.objects.filter(level=level).first()
         game_session = GameLevel.objects.filter(
-            game_id=game.id, level=game_level).first()
-        game_word = Word.objects.filter(id=game_level.word_id).first()
+            game_id=game, level=game_level).first()
+        game_word = Word.objects.filter(id=game_level.word_id.id).first()
 
         char_array = [" _"]*len(game_word.text)
         for char in game_session.guessed_strings:
@@ -98,7 +98,7 @@ def game(request, level, new):
         for char in char_array:
             game_char += " "+char
 
-        game_hint = Hint.objects.filter(id=game_level.hint_id).first()
+        game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
 
     return render(request, "game/game.html", {
         "level": game_level.level,
@@ -129,7 +129,7 @@ def guess(request, game_id):
         if (type == "letter" and guess in word) or (type == "word" and guess == word):
             game.total_game_score += 20
             game_session.level_game_score += 20
-            
+
             # add the guess to the guessed strings
             game_session.guessed_strings += guess
             game.save(), game_session.save()
@@ -140,28 +140,28 @@ def guess(request, game_id):
             game.save(), game_session.save()
 
         return redirect('game', level=game_level.level, new=0)
-    
+
     return redirect('game')
 
 
 def guess(request, game_id):
+    # retreive the necessary game data
+    game = Game.objects.filter(id=game_id).first()
+    game_level = Level.objects.filter(level=game.last_level).first()
+    game_session = GameLevel.objects.filter(
+        game_id=game_id, level=game_level).first()
+    word = Word.objects.filter(id=game_level.word_id.id).first().text.lower()
+
     if request.method == "POST":
-        game = Game.objects.filter(id=game_id).first()
-        game_level = Level.objects.filter(level=game.last_level).first()
 
         # work on the guess
         guess = request.POST['guess'].lower()
         type = request.POST['guess-type'].lower()
-        game_session = GameLevel.objects.filter(
-            game_id=game_id, level=game_level).first()
-
-        # retrieve our target word to verify
-        word = Word.objects.filter(id=game_level.word_id).first().text.lower()
 
         if (type == "letter" and guess in word) or (type == "word" and guess == word):
             game.total_game_score += 20
             game_session.level_game_score += 20
-            
+
             # add the guess to the guessed strings
             game_session.guessed_strings += guess
             game.save(), game_session.save()
@@ -172,22 +172,22 @@ def guess(request, game_id):
             game.save(), game_session.save()
 
         return redirect('game', level=game_level.level, new=0)
-    
-    return redirect('game')
+
+    return redirect('game', level=game_level.level, new=0)
 
 
 # Performance Views
 def leaderboard(request):
     return render(request, "game/leaderboard.html")
 
+
 def profile(request):
     return render(request, "game/profile.html")
+
 
 def chart(request):
     return render(request, "game/chart.html")
 
-    with open(data_path, 'r') as f:
-        words_data = json.load(f)
 
 # Setup Views
 def populate(request):
@@ -207,9 +207,9 @@ def populate(request):
 
             # if not exists create level and only if both word and hint were created successfully
             if hint and word and hint.id != None and word.id != None:
-                if not Level.objects.filter(word_id=word.id, hint_id=hint.id).first():
+                if not Level.objects.filter(word_id=word, hint_id=hint).first():
                     level = Level.objects.create(
-                        word_id=word.id, hint_id=hint.id)
+                        word_id=word, hint_id=hint)
 
         # check the word_data
         print(json.dumps(word_data, indent=4))
