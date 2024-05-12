@@ -1,10 +1,16 @@
 from django.urls import path
+from django.http import HttpResponse
 
 from . import views
 
 
-urlpatterns = [
+def no_favicon(request):
+    return HttpResponse(status=204)
 
+
+urlpatterns = [
+    # defaults
+    path('favicon.ico', no_favicon),
     path('', views.index, name="index"),
 
     # API Routes

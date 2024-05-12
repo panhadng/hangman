@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 import json
 
@@ -79,26 +79,15 @@ def game(request, level, new):
         game_session = GameLevel.objects.create(
             game_id=game, level=Level.objects.filter(level=level).first())
 
-    if request.method == "GET":
-        # fetch the game and level data
-        game = Game.objects.filter(
-            last_level=level, user_id=request.user).last()
-        game_level = Level.objects.filter(level=level).first()
-        game_session = GameLevel.objects.filter(
-            game_id=game, level=game_level).first()
-        game_word = Word.objects.filter(id=game_level.word_id.id).first()
-
-        char_array = [" _"]*len(game_word.text)
-        for char in game_session.guessed_strings:
-            for i in range(0, len(game_word.text)):
-                if game_word.text[i].lower() == char.lower():
-                    char_array[i] = char.upper()
-
-        game_char = ""
-        for char in char_array:
-            game_char += " "+char
-
-        game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
+    # fetch the game and level data
+    game = Game.objects.filter(
+        last_level=level, user_id=request.user).last()
+    game_level = Level.objects.filter(level=level).first()
+    game_session = GameLevel.objects.filter(
+        game_id=game, level=game_level).first()
+    game_word = Word.objects.filter(id=game_level.word_id.id).first()
+    game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
+    game_char = decrypt(game_word.text, game_session.guessed_strings)
 
     return render(request, "game/game.html", {
         "level": game_level.level,
@@ -109,71 +98,74 @@ def game(request, level, new):
         "game_id": game.id,
         "life":  game.lives_left,
         "score": game.total_game_score,
+        "guess": {
+            "guessed": False, }
     })
 
 
 def guess(request, game_id):
-    if request.method == "POST":
-        game = Game.objects.filter(id=game_id).first()
-        game_level = Level.objects.filter(level=game.last_level).first()
 
-        # work on the guess
-        guess = request.POST['guess'].lower()
-        type = request.POST['guess-type'].lower()
-        game_session = GameLevel.objects.filter(
-            game_id=game_id, level=game_level).first()
-
-        # retrieve our target word to verify
-        word = Word.objects.filter(id=game_level.word_id).first().text.lower()
-
-        if (type == "letter" and guess in word) or (type == "word" and guess == word):
-            game.total_game_score += 20
-            game_session.level_game_score += 20
-
-            # add the guess to the guessed strings
-            game_session.guessed_strings += guess
-            game.save(), game_session.save()
-        else:
-            game.total_game_score -= 20
-            game.lives_left -= 1
-            game_session.level_game_score -= 20
-            game.save(), game_session.save()
-
-        return redirect('game', level=game_level.level, new=0)
-
-    return redirect('game')
-
-
-def guess(request, game_id):
     # retreive the necessary game data
     game = Game.objects.filter(id=game_id).first()
     game_level = Level.objects.filter(level=game.last_level).first()
     game_session = GameLevel.objects.filter(
         game_id=game_id, level=game_level).first()
-    word = Word.objects.filter(id=game_level.word_id.id).first().text.lower()
+    game_word = Word.objects.filter(id=game_level.word_id.id).first()
+    game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
+    word = game_word.text.lower()
 
     if request.method == "POST":
 
         # work on the guess
-        guess = request.POST['guess'].lower()
-        type = request.POST['guess-type'].lower()
+        data = json.loads(request.body)
+        guess = data['guess'].lower()
+        type = data['type'].lower()
 
         if (type == "letter" and guess in word) or (type == "word" and guess == word):
             game.total_game_score += 20
             game_session.level_game_score += 20
 
             # add the guess to the guessed strings
-            game_session.guessed_strings += guess
+            game_session.guessed_strings += guess + "."
             game.save(), game_session.save()
+            is_correct = True
+
         else:
             game.total_game_score -= 20
             game.lives_left -= 1
             game_session.level_game_score -= 20
             game.save(), game_session.save()
+            is_correct = False
 
-        return redirect('game', level=game_level.level, new=0)
+        # repopulate the characters to be guessed
+        game_char = decrypt(game_word.text, game_session.guessed_strings)
+
+        return JsonResponse({
+            "game_char": game_char,
+            "guessed": True,
+            "correct": True if is_correct else False,
+            "message": "Congratulations! Your guess is correct." if is_correct else "Sorry, your guess is incorrect. Please try again.",
+        })
 
     return redirect('game', level=game_level.level, new=0)
+
+
+def decrypt(word, strings):
+
+    # generate decrypted guessed characters
+    char_array = [" _"] * len(word)
+    guessed_chars = [item for item in strings.split(".")]
+
+    for char in guessed_chars:
+        for i in range(len(word)):
+            if word[i].lower() == char.lower():
+                char_array[i] = char.upper()
+
+    game_char = ""
+    for char in char_array:
+        game_char += " " + char
+
+    return game_char
 
 
 # Performance Views

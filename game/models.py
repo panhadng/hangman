@@ -71,7 +71,7 @@ class GameLevel(models.Model):
     game_id = models.ForeignKey("Game", on_delete=models.CASCADE)
     level_game_score = models.IntegerField(default=100)
     guessed_strings = models.CharField(
-        max_length=25, default="", null=True, blank=True)
+        max_length=25, default=" .", null=True, blank=True)
 
     def __str__(self):
         return f"{self.level} Only '{self.guessed_strings}' guessed."

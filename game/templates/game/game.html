@@ -5,6 +5,14 @@
 </header>
 
 <main>
+  <div class="dark-bg" id="dark-bg"></div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close">&times;</span>
+      <p class="guess-message"></p>
+    </div>
+  </div>
+
   <div class="game-container">
     <div class="game-status">
       <div class="status-group">
@@ -37,12 +45,12 @@
       </div>
 
       {% comment %} Guess Section {% endcomment %}
-      <form class="guess-form" method="post" action="{% url 'guess' game_id %}">
+      <div class="guess-container" data-game-id="{{game_id}}">
         {% csrf_token %}
         <div class="input-guess">
-          <div class="guesses"> 
-            <label for="guess-type">Guess Type: </label>
-            <select id="guess-type" name="guess-type" required>
+          <div class="guesses">
+            <label for="type">Guess Type: </label>
+            <select id="type" name="type" required>
               <option value="" selected disabled>Choose One</option>
               <option value="letter">Letter</option>
               <option value="word">Full Word</option>
@@ -59,11 +67,11 @@
             />
           </div>
         </div>
-        <button type="submit">
+        <button class="submit-guess">
           <span>Guess</span> <img src="{% static "game/icons/guess.png" %}"
           alt="guess">
         </button>
-      </form>
+      </div>
     </div>
   </div>
 </main>
