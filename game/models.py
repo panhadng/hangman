@@ -91,3 +91,17 @@ class Guess(models.Model):
 
     def __str__(self):
         return f"Guess of {self.text} made on {self.guess_datetime}"
+
+#Post model is here
+
+class Post(models.Model):
+    author = models.ForeignKey("User", on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+
+    def __str__(self):
+        return self.content
+    
+    def like_count(self):
+        return self.likes.count()

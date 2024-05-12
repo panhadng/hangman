@@ -1,0 +1,43 @@
+{% extends "game/layout.html" %} {% load static %}
+{% block body %}
+<h1>Create Post</h1>
+<form method="POST" action="{% url 'post_form' %}">
+    {% csrf_token %}
+    <textarea name="content" rows="4" cols="50"></textarea><br>
+    <button type="submit">Submit</button>
+</form>
+
+<h2>Recent Posts</h2>
+<ul>
+    {% for post in posts %}
+    <li>{{ post.content }}
+        <button class="like-btn" data-post-id="{{ post.id }}">Like</button>
+        <span class="like-count">{{ post.like_count }}</span>
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+    $(document).ready(function() {
+        $('.like-btn').click(function() {
+            var post_id = $(this).data('post-id');
+            var csrf_token = '{{ csrf_token }}';
+            $.ajax({
+                url: '{% url "like_post" post_id=0 %}'.replace('0', post_id),
+                method: 'GET',
+                data: {'csrfmiddlewaretoken': csrf_token},
+                success: function(response) {
+                    $('.like-count[data-post-id=' + post_id + ']').text(response.like_count);
+                    if (response.liked) {
+                        $('.like-btn[data-post-id=' + post_id + ']').text('Unlike');
+                    } else {
+                        $('.like-btn[data-post-id=' + post_id + ']').text('Like');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}

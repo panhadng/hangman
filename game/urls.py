@@ -30,4 +30,8 @@ urlpatterns = [
     path('game/level=<int:level>/new=<int:new>', views.game, name="game"),
     path('guess/game_id=<int:game_id>', views.guess, name="guess"),
 
+    #post 
+    path('post_form', views.post_form, name='post_form'),
+    path('like/<int:post_id>/', views.like_post, name='like_post'),
+
 ]

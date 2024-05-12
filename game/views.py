@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
+from .models import Post
 import json
 
 from game.models import Word, Hint, Level, Game, User, GameLevel
@@ -207,3 +208,30 @@ def populate(request):
         print(json.dumps(word_data, indent=4))
 
     return redirect('index')
+
+
+#code for post to create
+def post_form(request):
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            # Post.objects.create(content=content)
+            post = Post(author=request.user, content=content)  # Create post object with author set to the logged-in user
+            post.save()
+            return redirect('post_form')  # Redirect to the same page after posting
+    
+    posts = Post.objects.all().order_by('-created_at')  # Fetch all posts, ordered by creation time
+    return render(request, 'game/post_form.html', {'posts': posts})
+
+
+
+def like_post(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+        liked = False
+    else:
+        post.likes.add(request.user)
+        liked = True
+    like_count = post.likes.count()
+    return JsonResponse({'like_count': like_count, 'liked': liked})
