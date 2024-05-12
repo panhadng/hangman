@@ -1,43 +1,62 @@
-{% extends "game/layout.html" %} 
-{% load static %}
-
-{% block body %}
+{% extends "game/layout.html" %} {% load static %} {% block body %}
 <header>
-        <h2>Profile</h2> 
+  <h2>Profile</h2>
 </header>
-    <main>
-        <div class="profile-section">
-            <div class="profile-details">
-                <div class="avt">
-                    <img src="{% static "game/images/profile_avtpic.png" %}" style="width: 30%; height: 30%;"><img src="{% static "game/images/profile_editicon.png" %}">
-                </div>
-                <div class="prof-details">
-                    <p><img src="{% static "game/images/profile_name.png" %}">John Snow</p>
-                </div>
-                <div class="prof-details">
-                    <p><img src="{% static "game/images/profile_mail.png" %}" style="margin-right: 3px;">jsnow@westeros.com</p>
-                </div>
-                <div class="prof-details">
-                    <p><img src="{% static "game/images/profile_rank.png" %}">Elite - Ranked</p>
-                </div>
-                <div class="prof-details">
-                    <p><img src="{% static "game/images/profile_badge.png" %}">2024 Best Economist</p>
-                </div>
-            </div>
-                <div id="chart_div" class="score"></div>
-            <div class="statistics">
-                <p>Highest Score Achieved</p>
-                <p style="font-size: 50px; color: lightblue;">940</p>
-                <p>Highest Level Achieved</p>
-                <p style="font-size: 50px; color: lightblue;">10</p>
-                <p>Win Rate</p>
-                <p style="font-size: 50px; color: lightblue;">80%</p>
-                <p>Longest No-fail streak</p>
-                <p style="font-size: 50px; color: lightblue;">5</p>
-                <p>Successful Guess Rate</p>
-                <p style="font-size: 50px; color: lightblue;">62%</p>
+<main>
+  <div class="profile-container">
+    <h3>Analytics</h3>
+    <div class="profile-section">
+      <div class="profile-details">
+        <div class="profile-pic">
+          <img id="avatar" src="{% static "game/images/profile_avtpic.png" %}">
+          <img id="edit-avatar" src="{% static "game/images/profile_editicon.png"%}">
         </div>
+        <div class="prof-details">
+          <p><img src="{% static "game/images/profile_name.png" %}"> John Snow</p>
         </div>
-    </main>
+        <div class="prof-details">
+          <p>
+            <img src="{% static "game/images/profile_mail.png"%}">
+            jsnow@westeros.com
+          </p>
+        </div>
+        <div class="prof-details">
+          <p>
+            <img src="{% static "game/images/profile_rank.png" %}"> Elite - Ranked
+          </p>
+        </div>
+        <div class="prof-details">
+          <p>
+            <img src="{% static "game/images/profile_badge.png" %}"> 2024 Best
+            Economist
+          </p>
+        </div>
+      </div>
+      <div class="score" id="chart"></div>
+      <div class="statistics">
+        <div class="stat">
+          <p>Highest Score</p>
+          <p style="font-size: 50px; color: lightblue">940</p>
+        </div>
+        <div class="stat">
+          <p>Highest Level</p>
+          <p style="font-size: 50px; color: lightblue">10</p>
+        </div>
+        <div class="stat">
+          <p>Win Rate</p>
+          <p style="font-size: 50px; color: lightblue">80%</p>
+        </div>
+        <div class="stat">
+          <p>Longest No-fail streak</p>
+          <p style="font-size: 50px; color: lightblue">5</p>
+        </div>
+        <div class="stat">
+          <p>Successful Guess</p>
+          <p style="font-size: 50px; color: lightblue">62%</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 
 {% endblock %}

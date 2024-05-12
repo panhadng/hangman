@@ -1,17 +1,25 @@
 {% extends "game/layout.html" %} {% load static %} {% block body %}
 
 <header>
-  <h2>Level 1</h2>
+  <h2>Level {{level}}</h2>
 </header>
 
 <main>
+  <div class="dark-bg" id="dark-bg"></div>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close">&times;</span>
+      <p class="guess-message"></p>
+    </div>
+  </div>
+
   <div class="game-container">
     <div class="game-status">
       <div class="status-group">
-        <img src="{% static "game/icons/hearts.png" %}" > <span>20</span>
+        <img src="{% static "game/icons/hearts.png" %}" > <span>{{life}}</span>
       </div>
       <div class="status-group">
-        <img src="{% static "game/icons/spades.png" %}" > <span>100</span>
+        <img src="{% static "game/icons/spades.png" %}" > <span>{{score}}</span>
       </div>
     </div>
     <div class="level-contents">
@@ -31,26 +39,37 @@
       </div>
       <hr />
       <div class="content-desc">
-        <div class="level-content">_ _ _ _ _</div>
-        <div class="level-content">
-          It's what you give up to get something you want. Economists study its
-          role in market transactions.
-        </div>
-        <div class="level-content">Economics</div>
+        <div class="level-content">{{char}}</div>
+        <div class="level-content">{{hint}}</div>
+        <div class="level-content">{{category}}</div>
       </div>
-      <div class="guess-form">
+
+      {% comment %} Guess Section {% endcomment %}
+      <div class="guess-container" data-game-id="{{game_id}}">
+        {% csrf_token %}
         <div class="input-guess">
           <div class="guesses">
-            <label for="word-guess">Guess the full word: </label>
-            <input id="word-guess" name="word-guess" type="text" />
+            <label for="type">Guess Type: </label>
+            <select id="type" name="type" required>
+              <option value="" selected disabled>Choose One</option>
+              <option value="letter">Letter</option>
+              <option value="word">Full Word</option>
+            </select>
           </div>
           <div class="guesses">
-            <label for="letter-guess">Guess each letter: </label>
-            <input id="letter-guess" name="letter-guess" type="text" />
+            <label for="guess">Your Guess: </label>
+            <input
+              id="guess"
+              name="guess"
+              type="text"
+              placeholder="Enter your guess"
+              required
+            />
           </div>
         </div>
-        <button type="submit">
-          <span>Guess</span> <img src="{% static "game/icons/guess.png" %}" alt="guess">
+        <button class="submit-guess">
+          <span>Guess</span> <img src="{% static "game/icons/guess.png" %}"
+          alt="guess">
         </button>
       </div>
     </div>

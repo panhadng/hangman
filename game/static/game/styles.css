@@ -9,7 +9,7 @@
 body {
   background: url(images/background.jpg) center no-repeat;
   background-size: cover;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +23,13 @@ header {
 
 main,
 header {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
 }
 
 /* header extras */
@@ -31,11 +37,7 @@ header > h2 {
   font-size: 4rem;
   color: lightblue;
   font-family: "Academy Engraved LET", sans-serif;
-}
-
-/* footer */
-footer {
-  margin-top: auto;
+  margin: 0 0 20px 0;
 }
 
 .game-logo {
@@ -54,30 +56,6 @@ footer {
 main > a,
 main > span {
   color: white;
-}
-
-/* global menu */
-.global-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: white;
-  padding: 5px;
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
-}
-
-.global-button:hover {
-  background-color: gray;
-}
-
-.global-button img {
-  width: 50px;
-}
-
-#settings-button {
-  bottom: 100px;
 }
 
 /* sign forms, login and register */
@@ -169,7 +147,7 @@ main > span {
 .game-container {
   border-radius: 40px;
   width: 1000px;
-  height: 500px;
+  height: 600px;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
@@ -213,6 +191,10 @@ main > span {
   width: 90%;
 }
 
+.level-content {
+  padding: 0 40px;
+}
+
 .content-titles {
   height: 100px;
   display: flex;
@@ -226,9 +208,8 @@ main > span {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  flex: 1;
   text-align: center;
-  align-items: center;
+  flex: 1;
 }
 
 .content-title > h3 {
@@ -247,11 +228,11 @@ main > span {
   flex-direction: row;
   justify-content: center;
   color: white;
-  height: 200px;
+  height: 300px;
 }
 
 .level-content:nth-child(1) {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .level-content:nth-child(2) {
@@ -272,7 +253,7 @@ main > span {
   align-items: center;
 }
 
-.guess-form {
+.guess-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -282,7 +263,7 @@ main > span {
   flex: 1;
 }
 
-.guess-form > button[type="submit"] {
+.guess-container > button {
   color: white;
   background-color: black;
   border-radius: 20px;
@@ -296,16 +277,16 @@ main > span {
   width: 200px;
 }
 
-.guess-form > button[type="submit"] > img {
+.guess-container > button > img {
   width: 40px;
   margin-left: 10px;
 }
 
-.guess-form > button[type="submit"] > span {
+.guess-container > button > span {
   margin-right: 10px;
 }
 
-.guess-form > button[type="submit"]:hover {
+.guess-container > button:hover {
   background-color: darkslategray;
 }
 
@@ -314,7 +295,7 @@ main > span {
   flex-direction: column;
   text-align: left;
   flex: 1;
-  padding: 20px 40px;
+  padding: 0 40px 20px 0;
 }
 
 .guesses {
@@ -326,18 +307,35 @@ main > span {
 }
 
 .guesses label,
-.guesses input {
+.guesses input,
+.guesses select {
   font-size: 1.5rem;
   width: 100%;
   flex: 1;
 }
 
-.guesses input {
+.guesses input,
+.guesses select {
   border-radius: 10px;
   padding: 10px 20px;
   border: none;
   color: black;
-  font-weight: bolder;
+}
+
+.guesses select {
+  -webkit-appearance: none; /* Remove default arrow for Chrome/Safari */
+  -moz-appearance: none; /* Remove default arrow for Firefox */
+  appearance: none; /* Remove default arrow for modern browsers */
+  font-weight: normal;
+  color: black;
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 48px;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+}
+
+.guesses select:disabled {
+  color: gray;
 }
 
 /* leaderboard section */
@@ -355,12 +353,12 @@ main > span {
 table,
 th,
 td {
-border-collapse: collapse;
-padding: 1rem;
-text-align: center;
+  border-collapse: collapse;
+  padding: 1rem;
+  text-align: center;
 }
 .leaderboard-display {
-    text-align: center;
+  text-align: center;
 }
 .leaderboard-display img {
   width: 50px;
@@ -376,4 +374,183 @@ text-align: center;
   align-items: center;
   justify-content: center;
 }
+.pyramid {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+.pyramid img {
+  width: 50px;
+}
+.pyramid-display {
+  position: relative;
+  height: 320px;
+  clip-path: polygon(50% 0, 10% 100%, 90% 100%);
+  flex: 1;
+  text-wrap: wrap;
+}
+.pyramid div {
+  background: red;
+  width: 100%;
+  height: 100px;
+  margin: 0 auto 10px;
+  color: white;
+  line-height: 140px;
+  text-align: center;
+}
 
+.pyramid p {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  align-items: center;
+}
+
+.profile-pic > #avatar {
+  height: 150px;
+  border-radius: 10px;
+}
+
+.profile-pic > #edit-avatar {
+  height: 30px;
+}
+
+.profile-pic > #avatar {
+  height: 150px;
+}
+
+.prof-details img {
+  height: 4em;
+  width: 4em;
+  border-radius: 20px;
+  margin-right: 20px;
+}
+.profile-details p {
+  display: flex;
+  align-items: center;
+}
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.profile-container {
+  border-radius: 40px;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 700px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  width: 1200px;
+}
+
+.profile-container > h3 {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.profile-section {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 20px;
+  width: 90%;
+}
+
+.score {
+  flex-grow: 1;
+}
+
+.statistics {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat {
+  margin: 5px auto;
+}
+
+.stat p {
+  margin: 5px auto;
+}
+
+.statistics-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.statistics-num {
+  display: flex;
+}
+.global-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  padding: 5px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+}
+.global-button:hover {
+  background-color: gray;
+}
+
+.global-button img {
+  width: 50px;
+}
+
+#settings-button {
+  bottom: 100px;
+}
+
+/* guess results section  */
+
+/* .dark-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: none;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 2;
+  display: none;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  color: black;
+}
+
+.close:hover {
+  color: red;
+}
+
+.popup-content {
+  color: green;
+}
+
+.popup-content.error {
+  color: red;
+} */

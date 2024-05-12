@@ -5,35 +5,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawBasic);
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
 
-function drawBasic() {
-
-      var data = google.visualization.arrayToDataTable([
-        ['Subject', 'Score', { role: 'style' }],
-        ['Economics', 50,'#196b24'],
-        ['Math', 40, '#46b1e1'],
-        ['Politics', 35, '#46b1e1'],
-        ['Physics', 30, '#46b1e1'],
-        ['Commerce', 20, '#c00000']
-      ]);
-
-      var options = {
-        title: 'Average Score by Categories',
-        chartArea: {width: '50%'},
-        hAxis: {
-          minValue: 0
-        },
-      };
-
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-
-      chart.draw(data, options);
-    }
-    </script>
+    {% comment %} Charts {% endcomment %}
+    <script type="text/javascript" src="{% static 'game/chart.js' %}"></script>
 
     {% comment %} CSS {% endcomment %}
     <link href="{% static 'game/styles.css' %}" rel="stylesheet" />
@@ -61,16 +39,16 @@ function drawBasic() {
     <title>Hangman Game</title>
   </head>
   <body>
-    {% block body %} {% endblock %} 
-    
-    {% comment %} if the user is authenticated then show the profile button {% endcomment %}
+    {% block body %} {% endblock %} {% comment %} if the user is authenticated
+    then show the profile button {% endcomment %}
     <button class="global-button">
-      <img src="{% static "game/icons/user.png" %}" >
+      <a href="{% url 'profile' %}">
+        <img src="{% static "game/icons/user.png" %}" >
+      </a>
     </button>
     <button class="global-button" id="settings-button">
       <img src="{% static "game/icons/gear.png" %}" >
     </button>
-
     <footer>
       <p class="game-copyrights">
         &copy; 2024 Word Warriors. All Rights Reserved

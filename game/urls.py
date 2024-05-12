@@ -1,18 +1,33 @@
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+from django.http import HttpResponse
 
 from . import views
 
 
+def no_favicon(request):
+    return HttpResponse(status=204)
+
+
 urlpatterns = [
+    # defaults
+    path('favicon.ico', no_favicon),
     path('', views.index, name="index"),
 
-    # API routes
-    path('login', views.login, name="login"),
+    # API Routes
+    path('login', views.login_view, name="login"),
+    path('logout', views.logout_view, name="logout"),
     path('register', views.register, name="register"),
     path('menu', views.menu, name="menu"),
-    path('game', views.game, name="game"),
+
+    # Performance Routes
     path('leaderboard', views.leaderboard, name="leaderboard"),
     path('profile', views.profile, name="profile"),
+
+    # Setup Routes
+    path('populate', views.populate, name="populate"),
+
+    # Game Routes
+    path('game/level=<int:level>/new=<int:new>', views.game, name="game"),
+    path('guess/game_id=<int:game_id>', views.guess, name="guess"),
 
 ]
