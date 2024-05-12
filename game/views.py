@@ -71,6 +71,7 @@ def menu(request):
 
 # Game Views
 def game(request, level, new):
+
     # load last game or create a new game
     last_game = 0 if Game.objects.all().last() == None else Game.objects.all().last().id
     if new == 1:
@@ -85,6 +86,9 @@ def game(request, level, new):
     game_level = Level.objects.filter(level=level).first()
     game_session = GameLevel.objects.filter(
         game_id=game, level=game_level).first()
+    if not game_session:
+        game_session = GameLevel.objects.create(
+            game_id=game, level=Level.objects.filter(level=level).first())
     game_word = Word.objects.filter(id=game_level.word_id.id).first()
     game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
     game_char = decrypt(game_word.text, game_session.guessed_strings)
@@ -111,8 +115,11 @@ def guess(request, game_id):
     game_session = GameLevel.objects.filter(
         game_id=game_id, level=game_level).first()
     game_word = Word.objects.filter(id=game_level.word_id.id).first()
-    game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
     word = game_word.text.lower()
+
+    # get the current game chars
+    game_char, char_array = decrypt(
+        game_word.text, game_session.guessed_strings, both=True)
 
     if request.method == "POST":
 
@@ -120,10 +127,26 @@ def guess(request, game_id):
         data = json.loads(request.body)
         guess = data['guess'].lower()
         type = data['type'].lower()
+        extra_points, stream_word = 0, []
 
-        if (type == "letter" and guess in word) or (type == "word" and guess == word):
+        if (type == "letter" and guess in word):
             game.total_game_score += 20
             game_session.level_game_score += 20
+
+            # add the guess to the guessed strings
+            game_session.guessed_strings += guess + "."
+            game.save(), game_session.save()
+            is_correct = True
+
+        elif (type == "word" and guess == word):
+
+            for i in range(len(word)):
+                if char_array[i] == " _":
+                    stream_word.append(word[i])
+
+            extra_points += 20*len(list(set(stream_word)))
+            game.total_game_score += extra_points
+            game_session.level_game_score += extra_points
 
             # add the guess to the guessed strings
             game_session.guessed_strings += guess + "."
@@ -139,6 +162,12 @@ def guess(request, game_id):
 
         # repopulate the characters to be guessed
         game_char = decrypt(game_word.text, game_session.guessed_strings)
+        if "_" not in game_char:
+            game.last_level += 1
+            game_session.win = True
+            game.save()
+
+        print(game_char)
 
         return JsonResponse({
             "game_char": game_char,
@@ -150,7 +179,7 @@ def guess(request, game_id):
     return redirect('game', level=game_level.level, new=0)
 
 
-def decrypt(word, strings):
+def decrypt(word, strings, both=False):
 
     # generate decrypted guessed characters
     char_array = [" _"] * len(word)
@@ -158,12 +187,18 @@ def decrypt(word, strings):
 
     for char in guessed_chars:
         for i in range(len(word)):
-            if word[i].lower() == char.lower():
+            if word.lower() == char.lower():
+                char_array = [letter for letter in word]
+
+            elif word[i].lower() == char.lower():
                 char_array[i] = char.upper()
 
     game_char = ""
     for char in char_array:
         game_char += " " + char
+
+    if both:
+        return game_char, char_array
 
     return game_char
 
@@ -174,7 +209,23 @@ def leaderboard(request):
 
 
 def profile(request):
-    return render(request, "game/profile.html")
+    games = Game.objects.filter(user_id=request.user)
+    user = request.user.username
+
+    # scores and levels
+    all_scores, all_levels = [], []
+    for game in games:
+        score, level = game.total_game_score, game.last_level
+        all_scores.append(score), all_levels.append(level)
+
+    context = {
+        "user": user,
+        "best_score": max(all_scores),
+        "highest_level": max(all_levels)
+    }
+    return render(request, "game/profile.html", {
+        "profile": context
+    })
 
 
 def chart(request):

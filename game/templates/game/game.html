@@ -8,7 +8,7 @@
   <div class="dark-bg" id="dark-bg"></div>
   <div id="popup" class="popup">
     <div class="popup-content">
-      <span class="close">&times;</span>
+      <button class="close-message">x</button>
       <p class="guess-message"></p>
     </div>
   </div>
@@ -45,7 +45,10 @@
       </div>
 
       {% comment %} Guess Section {% endcomment %}
-      <div class="guess-container" data-game-id="{{game_id}}">
+      <div class="guess-container" 
+      data-game-id="{{game_id}}"
+      data-level = "{{level}}"
+      >
         {% csrf_token %}
         <div class="input-guess">
           <div class="guesses">

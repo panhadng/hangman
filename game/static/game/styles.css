@@ -357,23 +357,68 @@ td {
   padding: 1rem;
   text-align: center;
 }
+
+.leaderboard-content table {
+  width: 60%;
+}
+
+.leaderboard-content table thead tr th {
+  color: lightblue;
+  font-size: 1.1rem;
+}
+
 .leaderboard-display {
   text-align: center;
 }
 .leaderboard-display img {
   width: 50px;
 }
-.leaderboard-icon p {
+.leaderboard-title {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+.leaderboard-title > p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard-title p:nth-child(2) {
+  position: absolute;
+  right: 0;
 }
 .leaderboard-header {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: -20px;
 }
+.leaderboard-header > div > img,
+.leaderboard-header > div > p > img {
+  margin-right: 10px;
+}
+
+.leaderboard-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.leaderboard-title,
+.pyramid-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.ranking-order {
+  font-weight: normal;
+  font-size: 1rem;
+}
+
 .pyramid {
   align-items: center;
   display: flex;
@@ -402,6 +447,13 @@ td {
 
 .pyramid p {
   display: flex;
+  align-items: center;
+}
+
+.pyramid-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
@@ -514,13 +566,13 @@ td {
 
 /* guess results section  */
 
-/* .dark-bg {
+.dark-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 1;
   display: none;
 }
@@ -537,20 +589,12 @@ td {
   display: none;
 }
 
-.close {
+.close-message {
   float: right;
   cursor: pointer;
   color: black;
 }
 
-.close:hover {
+.close-message:hover {
   color: red;
 }
-
-.popup-content {
-  color: green;
-}
-
-.popup-content.error {
-  color: red;
-} */

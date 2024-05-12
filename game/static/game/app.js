@@ -45,10 +45,54 @@ document.addEventListener("DOMContentLoaded", () => {
         })
           .then((response) => response.json())
           .then((result) => {
-            console.log(result);
             document.querySelector(".level-content").innerHTML =
               result.game_char;
-            document.querySelector(".guess-message").innerHTML = result.message;
+
+            // check if the level is completed
+            isLevelCompleted = result.game_char.indexOf("_") === -1;
+            if (isLevelCompleted) {
+              document.querySelector(".guess-message").innerHTML =
+                "Congrats!!! Level Completed...";
+            } else {
+              // update the guess result message
+              document.querySelector(".guess-message").innerHTML =
+                result.message;
+            }
+            var popup = document.querySelector(".popup");
+            var darkBg = document.querySelector(".dark-bg");
+
+            if (popup && darkBg) {
+              if (result.correct == true) {
+                popup.style.color = "green";
+              } else {
+                popup.style.color = "red";
+              }
+              popup.style.display = "block";
+              darkBg.style.display = "block";
+
+              document
+                .querySelector(".close-message")
+                .addEventListener("click", () => {
+                  popup.style.display = "none";
+                  darkBg.style.display = "none";
+
+                  var level = parseInt(document
+                    .querySelector(".guess-container")
+                    .getAttribute("data-level"));
+                  if (isLevelCompleted) {
+                    level += 1;
+                  }
+                  fetch(`/game/level=${level}/new=0`, {
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": csrftoken,
+                    },
+                  }).then((response) => {
+                    window.location.href = response.url;
+                  });
+                });
+            }
           });
       });
   }

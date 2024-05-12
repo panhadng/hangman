@@ -5,23 +5,27 @@
 
 <main>
   <div class="leaderboard-container">
-    <div class="pyramid">
-      <p><img src="{% static "game/images/pyramidpic.png" %}">MVP Pyramid</p>
-      <div class="pyramid-display">
-        <div class="top" style="line-height: 160px">Jon Snow</div>
-        <div class="mid" style="border: 2px solid">Tyrion Lannister</div>
-        <div class="bottom">Arya Stark</div>
-      </div>
-    </div>
     <div class="leaderboard-display">
       <div class="leaderboard-header">
-        <div class="leaderboard-icon" style="flex-grow: 2">
-          <p><img src="{% static "game/images/leaderb.png" %}">Leaderboard</p>
+        <div class="pyramid-title" style="width: 40%">
+          <img src="{% static "game/images/pyramidpic.png" %}">MVP Pyramid
         </div>
-        <p>
-          Score<img src="{% static "game/images/score.png" %}" style="width:
-          20px; margin-left: 10px;">
-        </p>
+        <div class="leaderboard-title" style="width: 60%">
+          <p><img src="{% static "game/images/leaderb.png" %}">Leaderboard</p>
+          <p class="ranking-order">
+            Score<img src="{% static "game/images/score.png" %}" style="width:
+            20px; margin-left: 10px;">
+          </p>
+        </div>
+      </div>
+      <div class="leaderboard-content">
+        <div class="pyramid">
+          <div class="pyramid-display">
+            <div class="top" style="line-height: 160px">Jon Snow</div>
+            <div class="mid" style="border: 2px solid">Tyrion Lannister</div>
+            <div class="bottom">Arya Stark</div>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
