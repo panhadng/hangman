@@ -15,6 +15,7 @@
 
     {% comment %} CSS {% endcomment %}
     <link href="{% static 'game/styles.css' %}" rel="stylesheet" />
+    <link href="{% static 'game/socials.css' %}" rel="stylesheet" />
 
     {% comment %} React, ReactDOM, Babel {% endcomment %}
     <script
@@ -33,14 +34,24 @@
       rel="stylesheet"
     />
 
+    {% comment %} icons {% endcomment %}
+    <script
+      src="https://kit.fontawesome.com/ba0aefa485.js"
+      crossorigin="anonymous"
+    ></script>
+
     {% comment %} JavaScript {% endcomment %}
     <script src="{% static 'game/app.js' %}"></script>
+    <script src="{% static 'game/socials.js' %}"></script>
 
     <title>Hangman Game</title>
   </head>
   <body>
     {% block body %} {% endblock %} {% comment %} if the user is authenticated
     then show the profile button {% endcomment %}
+
+    <div class="user-name">User: {{user}}</div>
+
     <button class="global-button">
       <a href="{% url 'profile' %}">
         <img src="{% static "game/icons/user.png" %}" >

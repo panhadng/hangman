@@ -543,8 +543,6 @@ td {
   display: flex;
 }
 .global-button {
-  position: fixed;
-  bottom: 20px;
   right: 20px;
   background-color: white;
   padding: 5px;
@@ -560,12 +558,26 @@ td {
   width: 50px;
 }
 
+.global-button,
+.user-name {
+  position: fixed;
+  bottom: 20px;
+}
+
+.user-name {
+  left: 20px;
+  font-size: 1.3rem;
+  color: white;
+  background-color: rgba(40, 40, 40, 0.8);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
 #settings-button {
   bottom: 100px;
 }
 
 /* guess results section  */
-
 .dark-bg {
   position: fixed;
   top: 0;

@@ -92,3 +92,33 @@ class Guess(models.Model):
 
     def __str__(self):
         return f"Guess of {self.text} made on {self.guess_datetime}"
+
+
+# social hub
+class Post(models.Model):
+    id = models.IntegerField(primary_key=True, auto_created=True)
+    post = models.TextField()
+    author = models.ForeignKey("User", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    like_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"Post written by {self.author} at {self.timestamp}"
+
+
+class Like(models.Model):
+    liker = models.ForeignKey("User", on_delete=models.CASCADE)
+    post_id = models.ForeignKey("Post", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.liker} likes {self.post_id}"
+
+
+class Comment(models.Model):
+    post_id = models.ForeignKey("Post", on_delete=models.CASCADE)
+    comment = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey("User", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Comment of {self.post_id} written by {self.author} at {self.timestamp}"

@@ -3,9 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 import json
 
-from game.models import Word, Hint, Level, Game, User, GameLevel
+from game.models import *
 
 
 #  Authentication Views
@@ -230,6 +231,76 @@ def profile(request):
 
 def chart(request):
     return render(request, "game/chart.html")
+
+
+# Social Views
+def social(request):
+    posts = Post.objects.all()
+    comments = Comment.objects.all()
+
+    return render(request, "game/social.html", {
+        "posts": posts,
+        "comments": comments,
+    })
+
+
+def post(request):
+    if request.method == "POST":
+        post = Post(author=request.user, post=request.POST['post'])
+        post.save()
+
+    return redirect('social')
+
+
+def like(request, post_id):
+    if request.method == 'GET':
+        try:
+            like = Like.objects.filter(
+                liker=request.user, post_id=Post.objects.filter(id=post_id).first())
+            return JsonResponse(len(like), safe=False)
+        except Like.DoesNotExist:
+            return JsonResponse({"error": "Like item not found."}, status=404)
+
+    elif request.method == "POST":
+        like = Like(liker=request.user,
+                    post_id=Post.objects.filter(id=post_id).first())
+        like.save()
+
+        # update post like count
+        post = Post.objects.filter(id=post_id).first()
+        if post:
+            post.like_count += 1
+            post.save()
+
+    elif request.method == 'DELETE':
+        like = Like.objects.filter(
+            liker=request.user, post_id=Post.objects.filter(id=post_id).first())
+        like.delete()
+        # update post like count
+        post = Post.objects.filter(id=post_id).first()
+        if post:
+            post.like_count -= 1
+            post.save()
+
+    else:
+        return JsonResponse({"error": "GET, POST or DELETE request required."})
+
+    return redirect('social')
+
+
+def comment(request, post_id):
+    post = Post.objects.filter(id=post_id).first()
+    if request.method == "POST":
+        data = json.loads(request.body)
+        comment = Comment(
+            post_id=post,
+            comment=data['comment'],
+            author=request.user,
+        )
+        comment.save()
+        return redirect('social')
+
+    return redirect('social')
 
 
 # Setup Views

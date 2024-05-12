@@ -26,6 +26,12 @@ urlpatterns = [
     # Setup Routes
     path('populate', views.populate, name="populate"),
 
+    # Social Routes
+    path('social', views.social, name='social'),
+    path('post', views.post, name='post'),
+    path('like/post_id=<int:post_id>', views.like, name='like'),
+    path('comment/post_id=<int:post_id>', views.comment, name='comment'),
+
     # Game Routes
     path('game/level=<int:level>/new=<int:new>', views.game, name="game"),
     path('guess/game_id=<int:game_id>', views.guess, name="guess"),

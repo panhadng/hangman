@@ -45,15 +45,16 @@
       </div>
 
       {% comment %} Guess Section {% endcomment %}
-      <div class="guess-container" 
-      data-game-id="{{game_id}}"
-      data-level = "{{level}}"
+      <div
+        class="guess-container"
+        data-game-id="{{game_id}}"
+        data-level="{{level}}"
       >
         {% csrf_token %}
         <div class="input-guess">
           <div class="guesses">
             <label for="type">Guess Type: </label>
-            <select id="type" name="type" required>
+            <select id="type" name="type">
               <option value="" selected disabled>Choose One</option>
               <option value="letter">Letter</option>
               <option value="word">Full Word</option>
@@ -66,7 +67,6 @@
               name="guess"
               type="text"
               placeholder="Enter your guess"
-              required
             />
           </div>
         </div>

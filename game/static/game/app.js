@@ -16,7 +16,7 @@ function getCookie(name) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("hello, world.");
+  console.log("hello gamer");
 
   // manage the leaderboard chart
   if (document.querySelector(".guess-container") != undefined) {
@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         var guessType = document.querySelector("#type").value;
         var guessText = document.querySelector("#guess").value;
+
+        // validate
 
         fetch(`/guess/game_id=${gameId}`, {
           method: "POST",
@@ -76,9 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
                   popup.style.display = "none";
                   darkBg.style.display = "none";
 
-                  var level = parseInt(document
-                    .querySelector(".guess-container")
-                    .getAttribute("data-level"));
+                  var level = parseInt(
+                    document
+                      .querySelector(".guess-container")
+                      .getAttribute("data-level")
+                  );
                   if (isLevelCompleted) {
                     level += 1;
                   }
