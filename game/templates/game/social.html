@@ -24,7 +24,7 @@
         <p>{{ post.post }}</p>
       </div>
       <p><span>{{ post.timestamp }}</span></p>
-      <p class="">
+      <p>
         <i class="fa-solid fa-heart"></i>
         <span class="like-count"> {{ post.like_count }}</span>&nbsp;&nbsp;&nbsp;
         <button class="like">Like</button>
@@ -35,8 +35,8 @@
 
         {% for comment in comments %}
         {% if comment.post_id == post.id %}{% endif %}
+        <h4 class="author-name">{{comment.author}}</h4>
         <div class="per-comment">
-          <h4>{{comment.author}}</h4>
           <p>{{comment.comment}}</p>
         </div>
         {% endfor %}

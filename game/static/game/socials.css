@@ -15,7 +15,11 @@ header > h2{
   scrollbar-width: thin;
 }
 
-
+.author-name{
+  margin-left: 30px;
+  margin-bottom: 0px;
+  color: white;
+}
 
 .create-post #post {
   min-height: 100px;
@@ -79,9 +83,9 @@ header > h2{
   border-radius: 30px;
 }
 
-.per-comment h4,
+/* .per-comment h4, */
 .per-comment p {
-  margin: 20px;
+  margin: 10px;
   
 }
 
