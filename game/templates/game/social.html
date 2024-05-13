@@ -34,7 +34,7 @@
         <button class="comment">Comment</button>
 
         {% for comment in comments %}
-        {% if comment.post == post.id %}{% endif %}
+        {% if comment.post_id == post.id %}{% endif %}
         <div class="per-comment">
           <h4>{{comment.author}}</h4>
           <p>{{comment.comment}}</p>
