@@ -599,14 +599,27 @@ td {
   border-radius: 10px;
   z-index: 2;
   display: none;
+  font-size: 2rem;
 }
 
 .close-message {
   float: right;
   cursor: pointer;
   color: black;
+  font-size: 1.6rem;
 }
 
 .close-message:hover {
   color: red;
+}
+
+.guess-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.guess-message img {
+  width: 200px;
+  border-radius: 20px;
 }
