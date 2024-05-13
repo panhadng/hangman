@@ -1,49 +1,50 @@
 {% extends "game/layout.html" %} {% block body %}
 
-<div class="social-container">
-  <h1>Social Hub</h1>
-  {% if user.is_authenticated %}
-  <form class="create-post" method="post" action="{% url 'post' %}">
-    {% csrf_token %}
-    <h3>New Post</h3>
-    <textarea id="post" name="post" placeholder="What's happening?"></textarea>
-    <input class="btn btn-primary" type="submit" value="Post" />
-  </form>
-  {% endif %} {% for post in posts %}
 
-  <div class="post">
-    <h3>{{ post.author }}</h3>
-    <div
-      class="post-content"
-      data-content="{{ post.post }}"
-      data-post-id="{{ post.id }}"
-    >
-      <p>{{ post.post }}</p>
-    </div>
-    <p><span>{{ post.timestamp }}</span></p>
-    <p>
-      <i class="fa-solid fa-heart"></i>
-      <span class="like-count"> {{ post.like_count }}</span>
-    </p>
-    <div class="like-comment">
-      <button class="like">Like</button>
-      <textarea
-        class="comment-text"
-        placeholder="Write a comment..."
-      ></textarea>
-      <button class="comment">Comment</button>
+<header>
+  <h2>Social Hub</h2>
+</header>
 
-      {% for comment in comments %}
-      {% if comment.post_id == post.id %}{% endif %}
-      <div class="per-comment"> 
-        <h4>{{comment.author}}</h4>
-        <p>{{comment.comment}}</p>
+<main>
+  <div class="social-container">
+    {% if user.is_authenticated %}
+    
+    <form class="create-post" method="post" action="{% url 'post' %}">
+      {% csrf_token %}
+      <h3 class="new-post">New Post</h3>
+      <textarea id="post" name="post" placeholder="What's happening?"></textarea>
+      <br>
+      <input class="btn btn-primary" id="post-btn" type="submit" value="Post" />
+    </form>
+    {% endif %} {% for post in posts %}
+
+    <div class="post">
+      <h3>{{ post.author }}</h3>
+      <div class="post-content" data-content="{{ post.post }}" data-post-id="{{ post.id }}">
+        <p>{{ post.post }}</p>
       </div>
-      {% endfor %}
-    </div>
-  </div>
+      <p><span>{{ post.timestamp }}</span></p>
+      <p class="">
+        <i class="fa-solid fa-heart"></i>
+        <span class="like-count"> {{ post.like_count }}</span>&nbsp;&nbsp;&nbsp;
+        <button class="like">Like</button>
+      </p>
+      <div class="like-comment">
+        <textarea class="comment-text" placeholder="Write a comment..."></textarea>
+        <button class="comment">Comment</button>
 
-  {% endfor %}
-</div>
+        {% for comment in comments %}
+        {% if comment.post == post.id %}{% endif %}
+        <div class="per-comment">
+          <h4>{{comment.author}}</h4>
+          <p>{{comment.comment}}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</main>
 
 {% endblock %}
