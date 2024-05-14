@@ -1,49 +1,81 @@
 {% extends "game/layout.html" %} {% block body %}
 
 
-<header>
-  <h2>Social Hub</h2>
-</header>
-
 <main>
   <div class="social-container">
     {% if user.is_authenticated %}
-    
-    <form class="create-post" method="post" action="{% url 'post' %}">
-      {% csrf_token %}
-      <h3 class="new-post">New Post</h3>
-      <textarea id="post" name="post" placeholder="What's happening?"></textarea>
-      <br>
-      <input class="btn btn-primary" id="post-btn" type="submit" value="Post" />
-    </form>
-    {% endif %} {% for post in posts %}
-
-    <div class="post">
-      <h3>{{ post.author }}</h3>
-      <div class="post-content" data-content="{{ post.post }}" data-post-id="{{ post.id }}">
-        <p>{{ post.post }}</p>
+    <div class="header">
+      <i class="fas fa-cloud"></i>&nbsp;&nbsp;<span style="font-weight: bold;">Social Hub</span>
+      <div class="search-container">
+        <input type="text" placeholder="Search...">
+        <button type="submit">Search</button>
       </div>
-      <p><span>{{ post.timestamp }}</span></p>
-      <p>
-        <i class="fa-solid fa-heart"></i>
-        <span class="like-count"> {{ post.like_count }}</span>&nbsp;&nbsp;&nbsp;
-        <button class="like">Like</button>
-      </p>
-      <div class="like-comment">
-        <textarea class="comment-text" placeholder="Write a comment..."></textarea>
-        <button class="comment">Comment</button>
+    </div>
+    <hr class="line">
 
-        {% for comment in comments %}
-        {% if comment.post_id == post.id %}{% endif %}
-        <h4 class="author-name">{{comment.author}}</h4>
-        <div class="per-comment">
-          <p>{{comment.comment}}</p>
+    <div class="commentbox">
+
+      <div class="sidenav">
+        <a href="#">
+          <span class="icon"><i class="fas fa-home"></i></span>
+          <span class="item">Discussion Forum</span></a><br><br><br>
+        <a href="#"><span class="icon"><i class="far fa-envelope"></i></span>
+          <span class="item">Text Messaging</span></a><br><br><br>
+        <a href="#"><span class="icon"><i class="fas fa-users"></i></span>
+          <span class="item">Player Groups</span></a>
+      </div>
+
+      <div class="content">
+        <div style="color: cadetblue; margin-top: 20px; margin-bottom: 20px; font-weight: bold;">
+          What's happening?
         </div>
+        <form class="create-post" method="post" action="{% url 'post' %}">
+          {% csrf_token %}
+          <textarea id="post" name="post" placeholder="Write Post..."></textarea>
+          <br>
+          <input class="btn btn-primary" id="post-btn" type="submit" value="Post" />
+        </form>
+        {% endif %}
+
+        {% for post in posts %}
+
+        <div class="post">
+          <h3 style="font-weight: bold; color: rgb(40, 92, 94);"><i class="fas fa-user-alt" style="background-color: rgba(9, 16, 18, 0.4);
+            border-radius: 40px; padding: 20px;"></i>&nbsp;&nbsp;{{ post.author }}<br>
+            <span style="font-weight: normal; font-size: x-small;">{{ post.timestamp }}</span>
+          </h3>
+
+          <div class="post-content" data-content="{{ post.post }}" data-post-id="{{ post.id }}">
+            <p>{{ post.post }}</p>
+          </div>
+
+          <p>
+            <i class="fa-solid fa-heart"></i>
+            <span class="like-count"> {{ post.like_count }}</span>&nbsp;&nbsp;&nbsp;
+            <button class="like">Like</button>
+          </p>
+          <hr>
+          <div class="like-comment">
+            <span style="font-weight: bold; color: rgb(40, 92, 94); padding: 10px;">Comments</span>
+            <textarea class="comment-text" placeholder="Write a comment..."></textarea>
+            <button class="comment">Comment</button>
+
+            {% for comment in comments %}
+            {% if comment.post_id == post.id %}{% endif %}
+            <h4 class="author-name"><i class="fas fa-user-alt"
+                style="border-radius: 40px; padding: 10px;"></i>{{comment.author}}</h4>
+            <div class="per-comment">
+              <p>{{comment.comment}}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
         {% endfor %}
       </div>
     </div>
 
-    {% endfor %}
+
   </div>
 </main>
 
