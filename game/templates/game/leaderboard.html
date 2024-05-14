@@ -1,4 +1,5 @@
 {% extends "game/layout.html" %} {% load static %} {% block body %}
+<script src="app.js"></script>
 <header>
   <h2>Leaderboard</h2>
 </header>
@@ -12,9 +13,14 @@
         </div>
         <div class="leaderboard-title" style="width: 60%">
           <p><img src="{% static "game/images/leaderb.png" %}">Leaderboard</p>
-          <p class="ranking-order">
-            Score<img src="{% static "game/images/score.png" %}" style="width:
-            20px; margin-left: 10px;">
+          <p>
+          <form id="sort-form" method="GET" action="{% url 'leaderboard' %}">
+            <select id="rank-type" name="rank-type" required>
+              <option value="" selected disabled>Choose One</option>
+              <option value="score">Score</option>
+              <option value="level">Level</option>
+              <option value="streak">Streak</option>
+            </select>
           </p>
         </div>
       </div>
@@ -36,41 +42,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Jon Snow</td>
-              <td>940</td>
-              <td>10</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <td>Petyr Baelish</td>
-              <td>880</td>
-              <td>9</td>
-              <td>6</td>
-            </tr>
-            <tr>
-              <td>Tyrion Lannister</td>
-              <td>860</td>
-              <td>12</td>
-              <td>7</td>
-            </tr>
-            <tr>
-              <td>Cersei Lannister</td>
-              <td>820</td>
-              <td>11</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>Arya Stark</td>
-              <td>800</td>
-              <td>14</td>
-              <td>6</td>
-            </tr>
+            {% for user_data in leaderboard %}
+              <tr>
+                <td>{{ user_data.username }}</td>
+                <td>{{ user_data.best_score }}</td>
+                <td>{{ user_data.highest_level }}</td>
+                <td>{{ user_data.longest_streak }}</td>
+              </tr>
+              {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
   </div>
+</form>
+
 </main>
 
 {% endblock %}

@@ -22,6 +22,8 @@ urlpatterns = [
     # Performance Routes
     path('leaderboard', views.leaderboard, name="leaderboard"),
     path('profile', views.profile, name="profile"),
+    # path('leaderboard/', views.leaderboard_sorted, name="leaderboard_sorted"),
+
 
     # Setup Routes
     path('populate', views.populate, name="populate"),

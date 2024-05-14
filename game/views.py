@@ -206,8 +206,41 @@ def decrypt(word, strings, both=False):
 
 # Performance Views
 def leaderboard(request):
-    return render(request, "game/leaderboard.html")
+    sort_by = request.GET.get('rank-type', 'score')  # Default to sorting by score
+    users=User.objects.all()
+    leaderboard=[]
+    for user in users:
+        games = Game.objects.filter(user_id=user)
+        user_data = {
+        "username": user.username,  
+        "best_score": max(game.total_game_score for game in games),
+        "highest_level": max(game.last_level for game in games),
+        "longest_streak": 0,  
+        }
+        leaderboard.append(user_data)
+    if sort_by == 'score':
+        sorted_leaderboard = sorted(leaderboard, key=lambda x: x["best_score"], reverse=True)
+    elif sort_by == 'level':
+        sorted_leaderboard = sorted(leaderboard, key=lambda x: x["highest_level"], reverse=True)
+    else:
+        sorted_leaderboard = sorted(leaderboard, key=lambda x: x["best_score"], reverse=True)
+    return render(request, "game/leaderboard.html", {"leaderboard": sorted_leaderboard})
 
+    # sorted_data=sorted(leaderboard,key=lambda x: x["best_score"], reverse=True)
+
+    # context = {"leaderboard": sorted_leaderboard}
+    # return render(request, "game/leaderboard.html", context)    
+
+
+    
+        # context = {"leaderboard": leaderboard}
+
+# def leaderboard_sorted(request):
+#     data=[{"user":"user1", "points":100},
+#           {"user":"user2", "points":120}]
+#     sorted_data=sorted(data,key=lambda x: x["points"], reverse=True)
+#     print(sorted_data)  # Add this line to check data in console
+#     return render(request, "game/leaderboard.html", {"data":sorted_data})
 
 def profile(request):
     games = Game.objects.filter(user_id=request.user)
