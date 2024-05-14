@@ -614,3 +614,7 @@ td {
   background-color:#0b131c;
   color: white;
   border: none;}
+
+#home-button {
+  bottom: 180px;
+}

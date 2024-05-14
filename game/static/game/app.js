@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 document.addEventListener('DOMContentLoaded', function() {
-  // Your code here
   var rankTypeSelect = document.getElementById('rank-type');
   if (rankTypeSelect) {
       rankTypeSelect.addEventListener('change', function() {

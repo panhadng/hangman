@@ -226,22 +226,6 @@ def leaderboard(request):
         sorted_leaderboard = sorted(leaderboard, key=lambda x: x["best_score"], reverse=True)
     return render(request, "game/leaderboard.html", {"leaderboard": sorted_leaderboard})
 
-    # sorted_data=sorted(leaderboard,key=lambda x: x["best_score"], reverse=True)
-
-    # context = {"leaderboard": sorted_leaderboard}
-    # return render(request, "game/leaderboard.html", context)    
-
-
-    
-        # context = {"leaderboard": leaderboard}
-
-# def leaderboard_sorted(request):
-#     data=[{"user":"user1", "points":100},
-#           {"user":"user2", "points":120}]
-#     sorted_data=sorted(data,key=lambda x: x["points"], reverse=True)
-#     print(sorted_data)  # Add this line to check data in console
-#     return render(request, "game/leaderboard.html", {"data":sorted_data})
-
 def profile(request):
     games = Game.objects.filter(user_id=request.user)
     user = request.user.username
