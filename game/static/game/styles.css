@@ -618,3 +618,9 @@ td {
 #home-button {
   bottom: 180px;
 }
+.guess-validation {
+  color: rgb(220, 88, 88);
+  margin-top: 0px;
+  text-align: center;
+  font-size: 18px;
+}
