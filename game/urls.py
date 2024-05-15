@@ -33,7 +33,7 @@ urlpatterns = [
     path('comment/post_id=<int:post_id>', views.comment, name='comment'),
 
     # Game Routes
-    path('game/level=<int:level>/new=<int:new>', views.game, name="game"),
+    path('game/new=<int:new>', views.game, name="game"),
     path('guess/game_id=<int:game_id>', views.guess, name="guess"),
 
 ]

@@ -15,6 +15,9 @@
           required
         />
       </div>
+      {% if message %}
+      <div class="sign-message">{{ message }}</div>
+      {% endif %}
       <div class="form-item">
         <label for="password">Password</label>
         <input

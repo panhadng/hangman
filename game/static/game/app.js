@@ -16,8 +16,6 @@ function getCookie(name) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("hello gamer");
-
   // manage the leaderboard chart
   if (document.querySelector(".guess-container") != undefined) {
     var gameId = document
@@ -73,11 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
             var darkBg = document.querySelector(".dark-bg");
 
             if (popup && darkBg) {
-              if (result.correct == true) {
-                popup.style.color = "green";
-              } else {
-                popup.style.color = "red";
-              }
+              popup.style.color = result.color;
               popup.style.display = "block";
               darkBg.style.display = "block";
 
@@ -107,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   if (isLevelCompleted) {
                     level += 1;
                   }
-                  fetch(`/game/level=${level}/new=0`, {
+                  fetch(`/game/new=0`, {
                     method: "GET",
                     headers: {
                       "Content-Type": "application/json",

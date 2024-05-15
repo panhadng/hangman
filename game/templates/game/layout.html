@@ -57,8 +57,10 @@
         <img src="{% static "game/icons/user.png" %}" >
       </a>
     </button>
-    <button class="global-button" id="settings-button">
-      <img src="{% static "game/icons/gear.png" %}" >
+    <button class="global-button" id="menu-button">
+      <a href="{% url 'menu' %}">
+        <img src="{% static "game/icons/menu.png" %}" >
+      </a>
     </button>
     <footer>
       <p class="game-copyrights">

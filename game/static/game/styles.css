@@ -573,7 +573,7 @@ td {
   border-radius: 10px;
 }
 
-#settings-button {
+#menu-button {
   bottom: 100px;
 }
 
@@ -622,4 +622,9 @@ td {
 .guess-message img {
   width: 200px;
   border-radius: 20px;
+}
+
+.sign-message {
+  text-align: center;
+  color: white;
 }

@@ -9,6 +9,15 @@ import json
 from game.models import *
 
 
+#  Main Menu Views
+def index(request):
+    return render(request, "game/index.html")
+
+
+def menu(request):
+    return render(request, "game/menu.html")
+
+
 #  Authentication Views
 def login_view(request):
     if request.method == "POST":
@@ -16,15 +25,21 @@ def login_view(request):
         # Attempt to sign user in
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
 
-        # Check if authentication successful
-        if user is not None:
-            login(request, user)
-            return redirect('index')
+        if username and password:
+            user = authenticate(request, username=username, password=password)
+
+            # Check if authentication successful
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse("index"))
+            else:
+                return render(request, "game/login.html", {
+                    "message": "Invalid username and/or password."
+                })
         else:
             return render(request, "game/login.html", {
-                "message": "Invalid username and/or password."
+                "message": "Username and password are required."
             })
     else:
         return render(request, "game/login.html")
@@ -56,40 +71,30 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("menu"))
     else:
         return render(request, "game/register.html")
 
 
-#  Main Menu Views
-def index(request):
-    return render(request, "game/index.html")
-
-
-def menu(request):
-    return render(request, "game/menu.html")
-
-
 # Game Views
-def game(request, level, new):
+def game(request, new):
 
     # load last game or create a new game
     last_game = 0 if Game.objects.all().last() == None else Game.objects.all().last().id
     if new == 1:
         game = Game.objects.create(
-            last_level=level, user_id=request.user, id=last_game+1)
+            last_level=1, user_id=request.user, id=last_game+1)
         game_session = GameLevel.objects.create(
-            game_id=game, level=Level.objects.filter(level=level).first())
+            game_id=game, level=Level.objects.filter(level=1).first())
 
     # fetch the game and level data
-    game = Game.objects.filter(
-        last_level=level, user_id=request.user).last()
-    game_level = Level.objects.filter(level=level).first()
+    game = Game.objects.filter(user_id=request.user).last()
+    game_level = Level.objects.filter(level=game.last_level).first()
     game_session = GameLevel.objects.filter(
         game_id=game, level=game_level).first()
     if not game_session:
         game_session = GameLevel.objects.create(
-            game_id=game, level=Level.objects.filter(level=level).first())
+            game_id=game, level=Level.objects.filter(level=1).first())
     game_word = Word.objects.filter(id=game_level.word_id.id).first()
     game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
     game_char = decrypt(game_word.text, game_session.guessed_strings)
@@ -123,6 +128,8 @@ def guess(request, game_id):
     game_char, char_array = decrypt(
         game_word.text, game_session.guessed_strings, both=True)
 
+    message = ""
+
     if request.method == "POST":
 
         # work on the guess
@@ -130,15 +137,20 @@ def guess(request, game_id):
         guess = data['guess'].lower()
         type = data['type'].lower()
         extra_points, stream_word = 0, []
+        print(game_char)
+        if (type == "letter" and guess in game_char.lower()):
+            message = "You already have guessed this letter."
+            color = "#FDDA0D"
 
-        if (type == "letter" and guess in word):
+        elif (type == "letter" and guess in word):
             game.total_game_score += 20
             game_session.level_game_score += 20
 
             # add the guess to the guessed strings
             game_session.guessed_strings += guess + "."
             game.save(), game_session.save()
-            is_correct = True
+            message = "Congratulations! Your guess is correct."
+            color = "green"
 
         elif (type == "word" and guess == word):
 
@@ -153,7 +165,8 @@ def guess(request, game_id):
             # add the guess to the guessed strings
             game_session.guessed_strings += guess + "."
             game.save(), game_session.save()
-            is_correct = True
+            message = "Congratulations! Your guess is correct."
+            color = "green"
 
         else:
             game.lives_left -= 1
@@ -161,7 +174,8 @@ def guess(request, game_id):
                 game.total_game_score -= 20
             game_session.level_game_score -= 20
             game.save(), game_session.save()
-            is_correct = False
+            message = "Sorry, your guess is incorrect. Please try again."
+            color = "red"
 
         # repopulate the characters to be guessed
         game_char = decrypt(game_word.text, game_session.guessed_strings)
@@ -173,14 +187,13 @@ def guess(request, game_id):
         game_over = False
         if game.lives_left <= 0:
             game_over = True
-        print(game_over)
 
         return JsonResponse({
             "game_over": game_over,
             "game_char": game_char,
             "guessed": True,
-            "correct": True if is_correct else False,
-            "message": "Congratulations! Your guess is correct." if is_correct else "Sorry, your guess is incorrect. Please try again.",
+            "color": color,
+            "message":  message,
         })
 
     return redirect('game', level=game_level.level, new=0)
@@ -231,8 +244,8 @@ def profile(request):
 
     context = {
         "user": user,
-        "best_score": max(all_scores),
-        "highest_level": max(all_levels)
+        "best_score": 0 if len(all_scores) == 0 else max(all_scores),
+        "highest_level":  0 if len(all_levels) == 0 else max(all_levels)
     }
     return render(request, "game/profile.html", {
         "profile": context

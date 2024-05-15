@@ -13,7 +13,10 @@
           name="username"
           placeholder="Enter your username..."
           required
-        /><br />
+        />
+        {% if message %}
+        <div class="sign-message">{{ message }}</div>
+        {% endif %}
       </div>
       <div class="form-item">
         <label for="password">Password</label>
