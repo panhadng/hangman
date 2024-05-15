@@ -104,7 +104,8 @@ def game(request, level, new):
         "life":  game.lives_left,
         "score": game.total_game_score,
         "guess": {
-            "guessed": False, }
+            "guessed": False,
+        }
     })
 
 
@@ -155,8 +156,9 @@ def guess(request, game_id):
             is_correct = True
 
         else:
-            game.total_game_score -= 20
             game.lives_left -= 1
+            if game.total_game_score > 0:
+                game.total_game_score -= 20
             game_session.level_game_score -= 20
             game.save(), game_session.save()
             is_correct = False
@@ -168,9 +170,13 @@ def guess(request, game_id):
             game_session.win = True
             game.save()
 
-        print(game_char)
+        game_over = False
+        if game.lives_left <= 0:
+            game_over = True
+        print(game_over)
 
         return JsonResponse({
+            "game_over": game_over,
             "game_char": game_char,
             "guessed": True,
             "correct": True if is_correct else False,
@@ -206,7 +212,11 @@ def decrypt(word, strings, both=False):
 
 # Performance Views
 def leaderboard(request):
-    return render(request, "game/leaderboard.html")
+    data = [{"user": "user1", "points": 100},
+            {"user": "user2", "points": 120}]
+    sorted_data = sorted(data, key=lambda x: x["points"], reverse=True)
+
+    return render(request, "game/leaderboard.html", {"data": sorted_data})
 
 
 def profile(request):

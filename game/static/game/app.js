@@ -31,9 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         var guessType = document.querySelector("#type").value;
         var guessText = document.querySelector("#guess").value;
+        var level = parseInt(
+          document.querySelector(".guess-container").getAttribute("data-level")
+        );
 
         // validate
-
         fetch(`/guess/game_id=${gameId}`, {
           method: "POST",
           headers: {
@@ -52,9 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // check if the level is completed
             isLevelCompleted = result.game_char.indexOf("_") === -1;
-            if (isLevelCompleted) {
+
+            // receive first badge if you finish first level
+            if (isLevelCompleted && level == 1) {
+              document.querySelector(".guess-message").innerHTML = `
+                      Congratulations!!! You finish your first level and receive a starter's badge.
+                      <img src="../../static/game/images/first-badge.jpg" />
+                        `;
+            } else if (isLevelCompleted) {
               document.querySelector(".guess-message").innerHTML =
-                "Congrats!!! Level Completed...";
+                "Congrats!!! \n Level Completed...";
             } else {
               // update the guess result message
               document.querySelector(".guess-message").innerHTML =
@@ -78,11 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
                   popup.style.display = "none";
                   darkBg.style.display = "none";
 
-                  var level = parseInt(
+                  // check if the game is over, then display game over message
+                  if (result.game_over === true) {
+                    document.querySelector(".guess-message").innerHTML =
+                      "No More Lives Left. Game Over!!!";
+                    popup.style.color = "red";
+                    popup.style.display = "block";
+                    darkBg.style.display = "block";
+
                     document
-                      .querySelector(".guess-container")
-                      .getAttribute("data-level")
-                  );
+                      .querySelector(".close-message")
+                      .addEventListener("click", () => {
+                        popup.style.display = "none";
+                        darkBg.style.display = "none";
+                        window.location.href = "/";
+                      });
+                  }
+
                   if (isLevelCompleted) {
                     level += 1;
                   }
