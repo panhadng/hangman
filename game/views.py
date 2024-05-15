@@ -92,9 +92,9 @@ def game(request, new):
     game_level = Level.objects.filter(level=game.last_level).first()
     game_session = GameLevel.objects.filter(
         game_id=game, level=game_level).first()
-    if not game_session:
+    if game_session is None:
         game_session = GameLevel.objects.create(
-            game_id=game, level=Level.objects.filter(level=1).first())
+            game_id=game, level=Level.objects.filter(level=game.last_level).first())
     game_word = Word.objects.filter(id=game_level.word_id.id).first()
     game_hint = Hint.objects.filter(id=game_level.hint_id.id).first()
     game_char = decrypt(game_word.text, game_session.guessed_strings)
@@ -140,7 +140,7 @@ def guess(request, game_id):
         print(game_char)
         if (type == "letter" and guess in game_char.lower()):
             message = "You already have guessed this letter."
-            color = "#FDDA0D"
+            color = "#FDDA0D"  # yellow color
 
         elif (type == "letter" and guess in word):
             game.total_game_score += 20
@@ -225,11 +225,29 @@ def decrypt(word, strings, both=False):
 
 # Performance Views
 def leaderboard(request):
-    data = [{"user": "user1", "points": 100},
-            {"user": "user2", "points": 120}]
-    sorted_data = sorted(data, key=lambda x: x["points"], reverse=True)
-
-    return render(request, "game/leaderboard.html", {"data": sorted_data})
+    # Default to sorting by score
+    sort_by = request.GET.get('rank-type', 'score')
+    users = User.objects.all()
+    leaderboard = []
+    for user in users:
+        games = Game.objects.filter(user_id=user)
+        user_data = {
+            "username": user.username,
+            "best_score": max(game.total_game_score for game in games),
+            "highest_level": max(game.last_level for game in games),
+            "longest_streak": 0,
+        }
+        leaderboard.append(user_data)
+    if sort_by == 'score':
+        sorted_leaderboard = sorted(
+            leaderboard, key=lambda x: x["best_score"], reverse=True)
+    elif sort_by == 'level':
+        sorted_leaderboard = sorted(
+            leaderboard, key=lambda x: x["highest_level"], reverse=True)
+    else:
+        sorted_leaderboard = sorted(
+            leaderboard, key=lambda x: x["best_score"], reverse=True)
+    return render(request, "game/leaderboard.html", {"leaderboard": sorted_leaderboard})
 
 
 def profile(request):
