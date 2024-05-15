@@ -14,7 +14,7 @@
     <hr class="line">
 
     <div class="commentbox">
-
+      <!-- code for side navbar -->
       <div class="sidenav">
         <a href="#">
           <span class="icon"><i class="fas fa-home"></i></span>
@@ -25,22 +25,26 @@
           <span class="item">Player Groups</span></a>
       </div>
 
+      <!-- code for main content -->
+
       <div class="content">
-        <div style="color: cadetblue; margin-top: 20px; margin-bottom: 20px; font-weight: bold;">
+        <div style="color: cadetblue; margin-top: 20px; margin-bottom: 20px; font-weight: bold; font-size: larger;">
           What's happening?
         </div>
-        <form class="create-post" method="post" action="{% url 'post' %}">
-          {% csrf_token %}
-          <textarea id="post" name="post" placeholder="Write Post..."></textarea>
-          <br>
-          <input class="btn btn-primary" id="post-btn" type="submit" value="Post" />
-        </form>
+        <div class="textarea-deco">
+          <form class="create-post" method="post" action="{% url 'post' %}">
+            {% csrf_token %}
+            <textarea id="post" name="post" placeholder="Write Post..."></textarea>
+            <br>
+            <input class="btn btn-primary" id="post-btn" type="submit" value="Post" />
+          </form>
+        </div>
         {% endif %}
 
         {% for post in posts %}
 
         <div class="post">
-          <h3 style="font-weight: bold; color: rgb(40, 92, 94);"><i class="fas fa-user-alt" style="background-color: rgba(9, 16, 18, 0.4);
+          <h3 style="font-weight: bold; color: #296cb4;"><i class="fas fa-user-alt" style="background-color: rgba(9, 16, 18, 0.1);
             border-radius: 40px; padding: 20px;"></i>&nbsp;&nbsp;{{ post.author }}<br>
             <span style="font-weight: normal; font-size: x-small;">{{ post.timestamp }}</span>
           </h3>
@@ -72,6 +76,72 @@
         </div>
 
         {% endfor %}
+      </div>
+
+      <!-- code for notification -->
+
+      <div class="notification">
+        <div class="notification-heading">
+          <h1>Notification</h1>
+        </div>
+        <hr>
+        <div class="notify-user">
+          <div class="user-notification">
+            <span style="padding-right:30px;">
+              <i class="fas fa-user-alt"></i> Proffesor Tyrison
+            </span>
+            <span style="font-size: x-small; color: dimgray;">
+              10 min ago<br>
+            </span>
+          </div>
+          <div style="padding-left: 20px; padding-top: 5px; color: dimgray;">
+            Liked your post..
+          </div>
+        </div>
+        
+        <div class="notify-user">
+          <div class="user-notification">
+            <span style="padding-right:30px;">
+              <i class="fas fa-user-alt"></i> Proffesor cersie
+            </span> 
+            <span style="font-size: x-small; color: dimgray;">
+              48 min ago<br>
+            </span>
+          </div>
+          <div style="padding-left: 20px; padding-top: 5px; color: dimgray;">
+            Liked your post..
+          </div>
+        </div>
+        
+        <div class="notify-user">
+          <div class="user-notification">
+            <span style="padding-right:55px;">
+              <i class="fas fa-user-alt"></i> Sansa Stark
+            </span> 
+            <span style="font-size: x-small; color: dimgray; align-items: left;">
+               2 hours ago<br>
+            </span>
+          </div>
+          <div style="padding-left: 20px; padding-top: 5px; color: dimgray;">
+            Sent you a message!
+          </div>
+        </div>
+
+        <div class="notify-user">
+          <div class="user-notification">
+            <span style="padding-right:70px;">
+              <i class="fas fa-user-alt"></i> Melisandre
+            </span>
+            <span style="font-size: x-small; color: dimgray; align-items: left;">
+              Yeasterday<br>
+            </span>
+          </div>
+          <div style="padding-left: 20px; padding-top: 5px; color: dimgray;">
+            Sent you a message!
+          </div>
+        </div>
+
+
       </div>
     </div>
 
