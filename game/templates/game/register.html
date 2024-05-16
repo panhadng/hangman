@@ -12,9 +12,14 @@
           id="username"
           name="username"
           placeholder="Write a username"
+          pattern="^[a-zA-Z0-9]+$"
+          title="Your username must only contain alpha characters"
           required
         />
       </div>
+      {% if message %}
+      <div class="sign-message">{{ message }}</div>
+      {% endif %}
       <div class="form-item">
         <label for="password">Password</label>
         <input
@@ -22,6 +27,8 @@
           id="password"
           name="password"
           placeholder="Write your password"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+          title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
           required
         />
       </div>

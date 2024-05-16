@@ -48,11 +48,8 @@
     <title>Hangman Game</title>
   </head>
   <body>
-    {% block body %} {% endblock %} {% comment %} if the user is authenticated
-    then show the profile button {% endcomment %}
-
+    {% block body %} {% endblock %}
     <div class="user-name">User: {{user}}</div>
-
     <button class="global-button">
       <a href="{% url 'profile' %}">
         <img src="{% static "game/icons/user.png" %}" >
@@ -60,6 +57,11 @@
     </button>
     <button class="global-button" id="settings-button">
       <img src="{% static "game/icons/gear.png" %}" >
+    </button>
+    <button class="global-button" id="home-button">
+      <a href="{% url 'menu' %}">
+        <img src="{% static "game/icons/home.png" %}" >
+      </a>
     </button>
     <footer>
       <p class="game-copyrights">

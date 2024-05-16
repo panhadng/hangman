@@ -22,6 +22,8 @@ urlpatterns = [
     # Performance Routes
     path('leaderboard', views.leaderboard, name="leaderboard"),
     path('profile', views.profile, name="profile"),
+    # path('leaderboard/', views.leaderboard_sorted, name="leaderboard_sorted"),
+
 
     # Setup Routes
     path('populate', views.populate, name="populate"),
@@ -33,7 +35,7 @@ urlpatterns = [
     path('comment/post_id=<int:post_id>', views.comment, name='comment'),
 
     # Game Routes
-    path('game/level=<int:level>/new=<int:new>', views.game, name="game"),
+    path('game/new=<int:new>', views.game, name="game"),
     path('guess/game_id=<int:game_id>', views.guess, name="guess"),
 
 ]

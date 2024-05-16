@@ -412,6 +412,7 @@ td {
 .pyramid-title {
   font-weight: bold;
   font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .ranking-order {
@@ -493,7 +494,9 @@ td {
 .profile-container {
   border-radius: 40px;
   background-color: rgba(0, 0, 0, 0.4);
-  height: 700px;
+  height: 100%;
+  padding: 40px 0;
+  margin-bottom: 5%;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -622,4 +625,24 @@ td {
 .guess-message img {
   width: 200px;
   border-radius: 20px;
+}
+
+.sign-message {
+  text-align: center;
+  color: white;
+}
+#rank-type {
+  background-color: #0b131c;
+  color: white;
+  border: none;
+}
+
+#home-button {
+  bottom: 180px;
+}
+.guess-validation {
+  color: rgb(220, 88, 88);
+  margin-top: 0px;
+  text-align: center;
+  font-size: 18px;
 }
