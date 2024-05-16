@@ -1,31 +1,73 @@
+header > h2 {
+  margin-top: 0px;
+}
 .social-container {
+  border-radius: 40px;
   background-color: white;
-  width: 1300px;
-  height: 700px;
-  border-radius: 20px;
+  width: 1400px;
+  height: 600px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: rgb(5, 4, 4) rgb(7, 7, 7);
+  scrollbar-width: thin;
+}
+
+.header {
+  text-align: left;
+  width: 100%;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.4);
+  padding-left: 5%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.line {
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.author-name {
+  margin-left: 30px;
+  margin-bottom: 0px;
+  color: rgb(16, 12, 12);
 }
 
 .create-post #post {
   min-height: 100px;
-  min-width: 300px;
+  min-width: 800px;
   padding: 10px;
+  background-color: rgba(224, 225, 225, 0.4);
 }
 
 .post {
-  background-color: lightgray;
+  background-color: rgba(196, 228, 238, 0.4);
   margin: 10px;
-  width: 50%;
+  width: 750px;
   padding: 10px 20px;
+  border-radius: 20px;
+  color: black;
+  margin-top: 30px;
+}
+
+.like {
+  top: 50%;
+  background-color: #0a0a23;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
 }
 
 .like-comment {
   display: flex;
   flex-direction: column;
   height: auto;
+  color: black;
 }
 
 .like-comment > button {
@@ -34,19 +76,175 @@
 }
 
 .like-comment > textarea {
-  min-height: 100px;
+  min-height: 70px;
   padding: 10px;
   border-radius: 10px;
-  margin: 10px auto;
-  width: 90%;
+  margin: auto;
+  width: 97%;
+}
+
+.like-class {
+  color: red;
+}
+.comment {
+  margin-top: 10px;
+  border-radius: 20px;
+  background-color: #04aa6d;
 }
 
 .per-comment {
-  background-color: white;
   margin: 10px 20px;
+  border-radius: 30px;
+  color: rgba(0, 0, 0, 0.4);
 }
 
-.per-comment h4,
+/* .per-comment h4, */
 .per-comment p {
+  margin: 10px;
+}
+
+.new-post {
+  font-size: 3rem;
+  color: lightblue;
+  font-family: "Academy Engraved LET", sans-serif;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+#post {
+  width: 90%;
+  height: 100px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+
+#post-btn {
+  border-radius: 20px;
+  background-color: white;
+  color: black;
+  border: 3px solid #04aa6d;
+  font-size: 16px;
+}
+
+#post-btn:hover {
+  background-color: #04aa6d; /* Green */
+  color: white;
+}
+
+/* search btn */
+
+.search-container {
+  position: relative;
+  float: right;
+  right: 100px;
+}
+
+.search-container input[type="text"] {
+  width: 200px; /* Adjust width as needed */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 10px;
+  outline: none;
+}
+
+.search-container button[type="submit"] {
+  padding: 5px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.search-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.sidenav {
+  position: relative;
+  align-items: left;
+  width: 18%;
+  padding-left: 30px;
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+
+.content {
+  position: relative;
+  float: right;
+  width: 60%;
+}
+
+.notification {
+  position: relative;
+  float: right;
+  width: 20%;
+  background-color: rgba(224, 225, 225, 0.4);
+  border-radius: 20px;
   margin: 20px;
+  height: 6%;
+  margin-top: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.notification-heading {
+  color: darkcyan;
+  text-align: center;
+}
+
+.commentbox {
+  display: flex;
+  padding-left: 0%;
+}
+
+.sidenav a {
+  text-decoration: none;
+  color: #000000;
+  margin-bottom: 30%;
+  padding: 20px;
+}
+
+.sidenav a .icon {
+  background-color: rgba(9, 16, 18, 0.4);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.sidenav a:hover {
+  background-color: rgb(197, 220, 244);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.user-notification {
+  border-radius: 40px;
+  color: #0056b3;
+}
+
+.notify-user {
+  background-color: #ffffff;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 5%;
+}
+
+.textarea-deco textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
 }
