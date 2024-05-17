@@ -23,7 +23,7 @@ class Profile(models.Model):
     badge_id = models.ForeignKey("Badge", on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user_id}"
+        return f"{self.user_id} owns {self.badge_id}"
 
 
 # in-game mechanics

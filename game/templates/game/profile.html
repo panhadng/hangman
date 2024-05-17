@@ -9,7 +9,7 @@
       <div class="profile-details">
         <div class="profile-pic">
           <img id="avatar" src="{% static "game/images/profile_avtpic.png" %}">
-          <img id="edit-avatar" src="{% static "game/images/profile_editicon.png"%}">
+          {% comment %} <img id="edit-avatar" src="{% static "game/images/profile_editicon.png"%}"> {% endcomment %}
         </div>
         <div class="prof-details">
           <p><img src="{% static "game/images/profile_name.png" %}"> {{user}}</p>
@@ -32,7 +32,7 @@
           </p>
         </div>
       </div>
-      <div class="score" id="chart"></div>
+      {% comment %} <div class="score" id="chart"></div> {% endcomment %}
       <div class="statistics">
         <div class="stat">
           <p>Highest Score</p>

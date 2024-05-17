@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("hello socials");
-
   // handle the like button and its function in total
   if (document.querySelector(".like") != undefined) {
     document.querySelectorAll(".like").forEach((post) => {

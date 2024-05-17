@@ -16,7 +16,7 @@ function getCookie(name) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // manage the leaderboard chart
+  // load the game
   if (document.querySelector(".guess-container") != undefined) {
     var gameId = document
       .querySelector(".guess-container")
@@ -90,77 +90,107 @@ document.addEventListener("DOMContentLoaded", () => {
             // check if the level is completed
             isLevelCompleted = result.game_char.indexOf("_") === -1;
 
-            // receive first badge if you finish first level
-            if (isLevelCompleted && level == 1) {
-              document.querySelector(".guess-message").innerHTML = `
-                      Congratulations!!! You finish your first level and receive a starter's badge.
-                      <img src="../../static/game/images/first-badge.jpg" />
-                        `;
-            } else if (isLevelCompleted) {
-              document.querySelector(".guess-message").innerHTML =
-                "Congrats!!! \n Level Completed...";
-            } else {
-              // update the guess result message
-              document.querySelector(".guess-message").innerHTML =
-                result.message;
-            }
-            var popup = document.querySelector(".popup");
-            var darkBg = document.querySelector(".dark-bg");
-
-            if (popup && darkBg) {
-              popup.style.color = result.color;
-              popup.style.display = "block";
-              darkBg.style.display = "block";
-
-              document
-                .querySelector(".close-message")
-                .addEventListener("click", () => {
-                  popup.style.display = "none";
-                  darkBg.style.display = "none";
-
-                  // check if the game is over, then display game over message
-                  if (result.game_over === true) {
-                    document.querySelector(".guess-message").innerHTML =
-                      "No More Lives Left. Game Over!!!";
-                    popup.style.color = "red";
-                    popup.style.display = "block";
-                    darkBg.style.display = "block";
-
-                    document
-                      .querySelector(".close-message")
-                      .addEventListener("click", () => {
-                        popup.style.display = "none";
-                        darkBg.style.display = "none";
-                        window.location.href = "/";
-                      });
-                  }
-
-                  if (isLevelCompleted) {
-                    level += 1;
-                  }
-                  fetch(`/game/new=0`, {
-                    method: "GET",
+            // check for badges and if there is none receive first badge if you finish first level
+            fetch("/badge", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+              },
+            })
+              .then((response) => response.json())
+              .then((badgeResult) => {
+                if (
+                  !badgeResult.badge.includes("Starter's Badge") &&
+                  isLevelCompleted &&
+                  level === 1
+                ) {
+                  fetch("/badge", {
+                    method: "POST",
                     headers: {
                       "Content-Type": "application/json",
                       "X-CSRFToken": csrftoken,
                     },
-                  }).then((response) => {
-                    window.location.href = response.url;
+                    body: JSON.stringify({
+                      badge: "Starter's Badge",
+                    }),
                   });
-                });
-            }
+                  document.querySelector(".guess-message").innerHTML = `
+                      Congratulations!!! You finish your first level and receive a starter's badge.
+                      <img src="../../static/game/images/first-badge.jpg" />
+                        `;
+                } else {
+                  if (isLevelCompleted) {
+                    document.querySelector(".guess-message").innerHTML =
+                      "Congrats!!! \n Level Completed...";
+                  } else {
+                    // update the guess result message
+                    document.querySelector(".guess-message").innerHTML =
+                      result.message;
+                  }
+                }
+              })
+              .then(() => {
+                var popup = document.querySelector(".popup");
+                var darkBg = document.querySelector(".dark-bg");
+
+                if (popup && darkBg) {
+                  popup.style.color = result.color;
+                  popup.style.display = "block";
+                  darkBg.style.display = "block";
+
+                  document
+                    .querySelector(".close-message")
+                    .addEventListener("click", () => {
+                      popup.style.display = "none";
+                      darkBg.style.display = "none";
+
+                      // check if the game is over, then display game over message
+                      if (result.game_over === true) {
+                        document.querySelector(".guess-message").innerHTML =
+                          "No More Lives Left. Game Over!!!";
+                        popup.style.color = "red";
+                        popup.style.display = "block";
+                        darkBg.style.display = "block";
+
+                        document
+                          .querySelector(".close-message")
+                          .addEventListener("click", () => {
+                            popup.style.display = "none";
+                            darkBg.style.display = "none";
+                            window.location.href = "/";
+                          });
+                      }
+
+                      if (isLevelCompleted) {
+                        level += 1;
+                      }
+                      fetch(`/game/new=0`, {
+                        method: "GET",
+                        headers: {
+                          "Content-Type": "application/json",
+                          "X-CSRFToken": csrftoken,
+                        },
+                      }).then((response) => {
+                        window.location.href = response.url;
+                      });
+                    });
+                }
+              });
           });
       });
   }
-});
-document.addEventListener("DOMContentLoaded", function () {
-  var rankTypeSelect = document.getElementById("rank-type");
-  if (rankTypeSelect) {
-    rankTypeSelect.addEventListener("change", function () {
-      var sortForm = document.getElementById("sort-form");
-      if (sortForm) {
-        sortForm.submit();
-      }
-    });
+
+  // profile ranking
+  if (document.querySelector("rank-type") != undefined) {
+    var rankTypeSelect = document.getElementById("rank-type");
+    if (rankTypeSelect) {
+      rankTypeSelect.addEventListener("change", function () {
+        var sortForm = document.getElementById("sort-form");
+        if (sortForm) {
+          sortForm.submit();
+        }
+      });
+    }
   }
 });

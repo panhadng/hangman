@@ -224,6 +224,26 @@ def decrypt(word, strings, both=False):
 
 
 # Performance Views
+def badge(request):
+    profile = Profile.objects.filter(user_id=request.user.id)
+    if request.method == "GET":
+        badges = Badge.objects.filter(
+            id__in=profile.values_list('badge_id', flat=True))
+    if request.method == "POST":
+        data = json.loads(request.body)
+        badge_name = data['badge']
+        Profile.objects.create(
+            user_id=request.user, badge_id=Badge.objects.filter(name=badge_name).first())
+        profile = Profile.objects.filter(user_id=request.user)
+        badges = Badge.objects.filter(
+            id__in=profile.values_list('badge_id', flat=True))
+
+    all_badges = [item['name'] for item in list(badges.values())]
+    return JsonResponse({
+        "badge": all_badges
+    })
+
+
 def leaderboard(request):
     # Default to sorting by score
     sort_by = request.GET.get('rank-type', 'score')
@@ -247,7 +267,17 @@ def leaderboard(request):
     else:
         sorted_leaderboard = sorted(
             leaderboard, key=lambda x: x["best_score"], reverse=True)
-    return render(request, "game/leaderboard.html", {"leaderboard": sorted_leaderboard})
+
+    pyramid = {
+        "first": sorted_leaderboard[0]["username"],
+        "second": sorted_leaderboard[1]["username"],
+        "third": sorted_leaderboard[2]["username"],
+    }
+
+    return render(request, "game/leaderboard.html", {
+        "leaderboard": sorted_leaderboard,
+        "pyramid": pyramid
+    })
 
 
 def profile(request):

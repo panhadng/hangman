@@ -22,8 +22,7 @@ urlpatterns = [
     # Performance Routes
     path('leaderboard', views.leaderboard, name="leaderboard"),
     path('profile', views.profile, name="profile"),
-    # path('leaderboard/', views.leaderboard_sorted, name="leaderboard_sorted"),
-
+    path('badge', views.badge, name="badge"),
 
     # Setup Routes
     path('populate', views.populate, name="populate"),
