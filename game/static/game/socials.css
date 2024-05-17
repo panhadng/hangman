@@ -155,7 +155,7 @@ header > h2 {
 
 .search-container button[type="submit"] {
   padding: 5px 20px;
-  background-color: #007bff;
+  background-color: #b7cee6;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -164,7 +164,7 @@ header > h2 {
 }
 
 .search-container button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #a7cbf1;
 }
 
 .sidenav {
