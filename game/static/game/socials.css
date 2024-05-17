@@ -1,9 +1,9 @@
-header > h2{
+header > h2 {
   margin-top: 0px;
 }
 .social-container {
   border-radius: 40px;
-  background-color:  white;
+  background-color: white;
   width: 1400px;
   height: 600px;
   display: flex;
@@ -15,7 +15,7 @@ header > h2{
   scrollbar-width: thin;
 }
 
-.header{
+.header {
   text-align: left;
   width: 100%;
   background-color: #ffffff;
@@ -27,11 +27,11 @@ header > h2{
 }
 
 .line {
-  border-bottom: 1px solid black; /* This creates a horizontal line */
-  width: 100%; /* Adjust width as needed */
+  border-bottom: 1px solid black;
+  width: 100%;
 }
 
-.author-name{
+.author-name {
   margin-left: 30px;
   margin-bottom: 0px;
   color: rgb(16, 12, 12);
@@ -54,14 +54,13 @@ header > h2{
   margin-top: 30px;
 }
 
-
 .like {
-    top:50%;
-    background-color:#0a0a23;
-    color: #fff;
-    border:none; 
-    border-radius:10px; 
-    padding:15px;
+  top: 50%;
+  background-color: #0a0a23;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
 }
 
 .like-comment {
@@ -84,14 +83,13 @@ header > h2{
   width: 97%;
 }
 
-.like-class{
+.like-class {
   color: red;
 }
-.comment{
+.comment {
   margin-top: 10px;
   border-radius: 20px;
-  background-color: #04AA6D;
-
+  background-color: #04aa6d;
 }
 
 .per-comment {
@@ -103,10 +101,9 @@ header > h2{
 /* .per-comment h4, */
 .per-comment p {
   margin: 10px;
-  
 }
 
-.new-post{
+.new-post {
   font-size: 3rem;
   color: lightblue;
   font-family: "Academy Engraved LET", sans-serif;
@@ -114,7 +111,7 @@ header > h2{
   text-align: center;
 }
 
-#post{
+#post {
   width: 90%;
   height: 100px;
   padding: 12px 20px;
@@ -126,16 +123,16 @@ header > h2{
   resize: none;
 }
 
-#post-btn{
+#post-btn {
   border-radius: 20px;
   background-color: white;
   color: black;
-  border: 3px solid #04AA6D;
+  border: 3px solid #04aa6d;
   font-size: 16px;
 }
 
-#post-btn:hover{
-  background-color: #04AA6D; /* Green */
+#post-btn:hover {
+  background-color: #04aa6d; /* Green */
   color: white;
 }
 
@@ -143,7 +140,7 @@ header > h2{
 
 .search-container {
   position: relative;
-  float:right;
+  float: right;
   right: 100px;
 }
 
@@ -170,26 +167,26 @@ header > h2{
   background-color: #0056b3;
 }
 
-.sidenav{
-    position: relative;
-    align-items: left;
-    width: 18%;
-    padding-left: 30px;
-    padding-top: 50px;
-    padding-bottom: 40px;
-  }
+.sidenav {
+  position: relative;
+  align-items: left;
+  width: 18%;
+  padding-left: 30px;
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
 
-.content{
+.content {
   position: relative;
   float: right;
   width: 60%;
 }
 
-.notification{
+.notification {
   position: relative;
   float: right;
   width: 20%;
-  background-color: rgba(224, 225, 225, 0.4) ;
+  background-color: rgba(224, 225, 225, 0.4);
   border-radius: 20px;
   margin: 20px;
   height: 6%;
@@ -198,43 +195,41 @@ header > h2{
   padding-right: 10px;
 }
 
-.notification-heading{
+.notification-heading {
   color: darkcyan;
   text-align: center;
 }
 
-.commentbox{
-    display: flex;
-    padding-left: 0%;
+.commentbox {
+  display: flex;
+  padding-left: 0%;
 }
 
-a{
+.sidenav a {
   text-decoration: none;
   color: #000000;
   margin-bottom: 30%;
   padding: 20px;
-  
 }
 
-a .icon{
+.sidenav a .icon {
   background-color: rgba(9, 16, 18, 0.4);
   border-radius: 20px;
   padding: 10px;
 }
 
-a:hover{
+.sidenav a:hover {
   background-color: rgb(197, 220, 244);
   border-radius: 20px;
   padding: 20px;
 }
 
-.user-notification{
-  border-radius: 40px; 
+.user-notification {
+  border-radius: 40px;
   color: #0056b3;
-  
 }
 
-.notify-user{
+.notify-user {
   background-color: #ffffff;
   margin: 5px;
   padding: 10px;
@@ -242,7 +237,7 @@ a:hover{
   margin-top: 5%;
 }
 
-textarea{
+.textarea-deco textarea {
   width: 100%;
   height: 150px;
   padding: 12px 20px;
