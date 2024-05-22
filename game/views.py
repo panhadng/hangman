@@ -32,7 +32,7 @@ def login_view(request):
             # Check if authentication successful
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse("index"))
+                return HttpResponseRedirect(reverse("menu"))
             else:
                 return render(request, "game/login.html", {
                     "message": "Invalid username and/or password."
@@ -47,7 +47,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("menu"))
 
 
 def register(request):
@@ -65,6 +65,7 @@ def register(request):
         # Attempt to create new user
         try:
             user = User.objects.create_user(username, password)
+            user.set_password(password)
             user.save()
         except IntegrityError:
             return render(request, "game/register.html", {
